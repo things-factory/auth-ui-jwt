@@ -59,23 +59,23 @@ export class AuthProfile extends PageView {
     }
   }
 
+  get tools() {
+    return html`
+      <label>Auth Profile</label>
+    `
+  }
+
   render() {
     return html`
-      <page-toolbar>
-        <label>Auth Profile</label>
-      </page-toolbar>
-
       <div>
-        <div>
-          <p>Email: <b>${this.email}</b></p>
-        </div>
-        <div>
-          <p>Token:</p>
-          <div id="token">${this.accessToken}</div>
-        </div>
-
-        <button @click="${() => auth.signout()}">Sign Out</button>
+        <p>Email: <b>${this.email}</b></p>
       </div>
+      <div>
+        <p>Token:</p>
+        <div id="token">${this.accessToken}</div>
+      </div>
+
+      <button @click="${() => auth.signout()}">Sign Out</button>
     `
   }
 }
