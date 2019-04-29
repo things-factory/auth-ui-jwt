@@ -1,6 +1,11 @@
-import { auth, store } from '@things-factory/shell'
+import { html } from 'lit-html'
+import { store, loadPage } from '@things-factory/shell'
+import { auth } from '@things-factory/auth-base'
 import { i18next } from '@things-factory/i18n-base'
-import { showSnackbar } from '@things-factory/layout-base'
+import { showSnackbar, APPEND_APP_TOOL, TOOL_POSITION } from '@things-factory/layout-base'
+import { ADD_MORENDA } from '@things-factory/more-base'
+
+import '@material/mwc-icon'
 
 export default function bootstrap() {
   function onProfile(profile) {}
@@ -29,4 +34,26 @@ export default function bootstrap() {
     onAuthentication(false)
   })
   auth.on('error', onError)
+
+  /* add user app-tool */
+  store.dispatch({
+    type: APPEND_APP_TOOL,
+    tool: {
+      template: html`
+        <mwc-icon @click=${e => store.dispatch(loadPage('profile'))}>account_circle</mwc-icon>
+      `,
+      position: TOOL_POSITION.RIGHT
+    }
+  })
+
+  /* add user morenda */
+  store.dispatch({
+    type: ADD_MORENDA,
+    morenda: {
+      name: 'Singout',
+      action: () => {
+        auth.signout()
+      }
+    }
+  })
 }
