@@ -14,9 +14,7 @@ export class AuthProfile extends PageView {
     return [
       css`
         :host {
-          display: flex;
-          flex-direction: column;
-          text-align: center;
+          display: block;
         }
 
         div {
@@ -25,7 +23,7 @@ export class AuthProfile extends PageView {
 
         #token {
           display: inline-block;
-          width: 50%;
+          max-width: 500px;
           overflow-wrap: break-word;
           text-align: left;
           border: 1px solid tomato;
@@ -75,8 +73,9 @@ export class AuthProfile extends PageView {
         <p>Token:</p>
         <div id="token">${this.accessToken}</div>
       </div>
-
-      <button @click="${() => auth.signout()}">Sign Out</button>
+      <div>
+        <button @click="${() => auth.signout()}">Sign Out</button>
+      </div>
     `
   }
 }

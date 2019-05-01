@@ -40,9 +40,11 @@ export default function bootstrap() {
     type: APPEND_APP_TOOL,
     tool: {
       template: html`
-        <mwc-icon @click=${e => store.dispatch(loadPage('profile'))}>account_circle</mwc-icon>
+        <a style="text-decoration: none;" href="profile">
+          <mwc-icon>account_circle</mwc-icon>
+        </a>
       `,
-      position: TOOL_POSITION.RIGHT
+      position: TOOL_POSITION.REAR
     }
   })
 
