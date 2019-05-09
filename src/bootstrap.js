@@ -4,11 +4,25 @@ import { auth } from '@things-factory/auth-base'
 import { i18next } from '@things-factory/i18n-base'
 import { showSnackbar, APPEND_APP_TOOL, TOOL_POSITION } from '@things-factory/layout-base'
 import { ADD_MORENDA } from '@things-factory/more-base'
+import { ADD_SETTING } from '@things-factory/setting-base'
 
 import '@material/mwc-icon'
 
 export default function bootstrap() {
-  function onProfile(profile) {}
+  function onProfile(profile) {
+    store.dispatch({
+      type: ADD_SETTING,
+      setting: {
+        seq: 10,
+        template: html`
+          <div style="background-color: #e5e5e5;height: 50px;padding: 20px 0px 20px 0px;text-align: center;">
+            <p style="margin:0"><b>${profile.name}</b></p>
+            <p style="margin:0">${profile.email}</p>
+          </div>
+        `
+      }
+    })
+  }
 
   function onAuthentication(on) {
     store.dispatch(
@@ -52,10 +66,21 @@ export default function bootstrap() {
   store.dispatch({
     type: ADD_MORENDA,
     morenda: {
-      name: 'Singout',
+      name: 'Sign Out',
       action: () => {
         auth.signout()
       }
+    }
+  })
+
+  import('./pages/change-password')
+  store.dispatch({
+    type: ADD_SETTING,
+    setting: {
+      seq: 30,
+      template: html`
+        <change-password></change-password>
+      `
     }
   })
 }
