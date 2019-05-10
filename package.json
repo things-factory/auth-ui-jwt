@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/auth-ui-jwt",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "main": "src/index.js",
   "browser": "src/index.js",
   "things-factory": true,
