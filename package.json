@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/auth-ui-jwt",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "main": "dist-server/index.js",
   "browser": "client/index.js",
   "things-factory": true,
@@ -27,7 +27,6 @@
     "@things-factory/auth-base": "*",
     "@things-factory/auth-provider-jwt": "*",
     "@things-factory/i18n-base": "*",
-    "@things-factory/layout-base": "*",
     "@things-factory/more-base": "*",
     "@things-factory/setting-base": "*",
     "@things-factory/shell": "*"
