@@ -1,5 +1,5 @@
 import { html } from 'lit-html'
-import { store, loadPage } from '@things-factory/shell'
+import { store } from '@things-factory/shell'
 import { auth } from '@things-factory/auth-base'
 import { i18next } from '@things-factory/i18n-base'
 import { APPEND_APP_TOOL, TOOL_POSITION } from '@things-factory/layout-base'
