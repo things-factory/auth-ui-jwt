@@ -93,7 +93,10 @@ export default function bootstrap() {
     setting: {
       seq: 30,
       template: html`
-        <change-password></change-password>
+        <setting-let>
+          <i18n-msg slot="title" msgid="text.change password"></i18n-msg>
+          <change-password slot="content"></change-password>
+        </setting-let>
       `
     }
   })
