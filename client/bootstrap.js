@@ -80,14 +80,18 @@ export default function bootstrap() {
   store.dispatch({
     type: ADD_MORENDA,
     morenda: {
-      name: 'Sign Out',
+      icon: html`
+        <mwc-icon>close</mwc-icon>
+      `,
+      name: html`
+        <i18n-msg msgid="label.sign out"></i18n-msg>
+      `,
       action: () => {
         auth.signout()
       }
     }
   })
 
-  import('./pages/change-password')
   store.dispatch({
     type: ADD_SETTING,
     setting: {
