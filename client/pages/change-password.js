@@ -1,13 +1,18 @@
 import { html, LitElement, css } from 'lit-element'
 import { auth } from '@things-factory/auth-base'
 
-export class ChangePassword extends LitElement {
+import { i18next, localize } from '@things-factory/i18n-base'
+
+export class ChangePassword extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       css`
         div#pwdSetting {
           padding: 30px;
+
+          text-transform: capitalize;
         }
+
         input {
           border-top: none;
           border-left: none;
@@ -24,12 +29,17 @@ export class ChangePassword extends LitElement {
 
         ::placeholder {
           font-size: 0.8rem;
+          text-transform: capitalize;
         }
 
         span {
           color: #c0504d;
           text-align: left;
           font-size: 1em;
+        }
+
+        button {
+          text-transform: uppercase;
         }
       `
     ]
@@ -38,13 +48,19 @@ export class ChangePassword extends LitElement {
   render() {
     return html`
       <div id="pwdSetting">
-        <span>Change Password</span><br />
+        <span><i18n-msg msgid="text.change password"></i18n-msg></span><br />
 
-        <form id="changePass" @submit="${e => this._handleSubmit(e)}">
-          <div class="field"><input type="password" name="current_pass" placeholder="Current Password" required /></div>
-          <div class="field"><input type="password" name="new_pass" placeholder="New Password" required /></div>
-          <div class="field"><input type="password" name="confirm_pass" placeholder="Confirm Password" required /></div>
-          <button class="ui button" type="submit">Change Password</button>
+        <form id="changePass" @submit=${e => this._handleSubmit(e)}>
+          <div class="field">
+            <input type="password" name="current_pass" placeholder=${i18next.t('text.current password')} required />
+          </div>
+          <div class="field">
+            <input type="password" name="new_pass" placeholder=${i18next.t('text.new password')} required />
+          </div>
+          <div class="field">
+            <input type="password" name="confirm_pass" placeholder=${i18next.t('text.confirm password')} required />
+          </div>
+          <button class="ui button" type="submit"><i18n-msg msgid="text.change password"></i18n-msg></button>
         </form>
       </div>
     `
@@ -76,4 +92,5 @@ export class ChangePassword extends LitElement {
     form.reset()
   }
 }
+
 customElements.define('change-password', ChangePassword)

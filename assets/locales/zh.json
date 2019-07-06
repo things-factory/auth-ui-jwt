@@ -8,12 +8,5 @@
   "text.change password": "change password",
   "text.current password": "current password",
   "text.new password": "new password",
-  "text.confirm password": "confirm password",
-  "text.auth profile": "user profile",
-  "label.sign up": "sign up",
-  "label.sign in": "sign in",
-  "label.sign out": "sign out",
-  "label.email": "email",
-  "label.password": "password",
-  "label.token": "token"
+  "text.confirm password": "confirm password"
 }

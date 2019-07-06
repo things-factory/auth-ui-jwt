@@ -5,5 +5,15 @@
   "text.current language": "한국어",
   "text.offline": "오프라인",
   "text.online": "온라인",
-  "menu.page": "페이지"
+  "text.change password": "패스워드 변경",
+  "text.current password": "현재 패스워드",
+  "text.new password": "새 패스워드",
+  "text.confirm password": "패스워드 확인",
+  "text.auth profile": "사용자 프로파일",
+  "label.sign up": "사용자 등록",
+  "label.sign in": "로그인",
+  "label.sign out": "로그아웃",
+  "label.email": "이메일",
+  "label.password": "패스워드",
+  "label.token": "인증 토큰"
 }

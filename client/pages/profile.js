@@ -1,8 +1,10 @@
 import { html, css } from 'lit-element'
+
 import { PageView } from '@things-factory/shell'
 import { auth } from '@things-factory/auth-base'
+import { localize, i18next } from '@things-factory/i18n-base'
 
-export class AuthProfile extends PageView {
+export class AuthProfile extends localize(i18next)(PageView) {
   static get properties() {
     return {
       email: String,
@@ -15,10 +17,16 @@ export class AuthProfile extends PageView {
       css`
         :host {
           display: block;
+
+          text-transform: capitalize;
         }
 
         div {
           text-align: center;
+        }
+
+        [email] {
+          text-transform: none;
         }
 
         #token {
@@ -28,6 +36,10 @@ export class AuthProfile extends PageView {
           text-align: left;
           border: 1px solid tomato;
           padding: 2px;
+        }
+
+        button {
+          text-transform: uppercase;
         }
       `
     ]
@@ -60,21 +72,21 @@ export class AuthProfile extends PageView {
 
   get context() {
     return {
-      title: 'Auth Profile'
+      title: i18next.t('text.auth profile')
     }
   }
 
   render() {
     return html`
       <div>
-        <p>Email: <b>${this.email}</b></p>
+        <p><i18n-msg msgid="label.email"></i18n-msg> <b email>${this.email}</b></p>
       </div>
       <div>
-        <p>Token:</p>
+        <p><i18n-msg msgid="label.token"></i18n-msg></p>
         <div id="token">${this.accessToken}</div>
       </div>
       <div>
-        <button @click="${() => auth.signout()}">Sign Out</button>
+        <button @click=${() => auth.signout()}><i18n-msg msgid="label.sign out"></i18n-msg></button>
       </div>
     `
   }

@@ -2,6 +2,8 @@ import { html, css } from 'lit-element'
 import { PageView } from '@things-factory/shell'
 import { auth } from '@things-factory/auth-base'
 
+import '@things-factory/i18n-base'
+
 export class AuthSignOut extends PageView {
   static get styles() {
     return [
@@ -17,8 +19,8 @@ export class AuthSignOut extends PageView {
 
   render() {
     return html`
-      <h3>Sign Out</h3>
-      <a href=${auth.fullpage(auth.signinPage)}>Sign In</a>
+      <h3><i18n-msg msgid="label.sign out"></i18n-msg></h3>
+      <a href=${auth.fullpage(auth.signinPage)}><i18n-msg msgid="label.sign in"></i18n-msg></a>
     `
   }
 }
