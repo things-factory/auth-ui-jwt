@@ -1,8 +1,15 @@
 {
-  "text.signed in": "signed in",
-  "text.signed out": "signed out",
-  "text.change password": "change password",
-  "text.current password": "current password",
-  "text.new password": "new password",
-  "text.confirm password": "confirm password"
+  "text.signed in": "已经登入",
+  "text.signed out": "已经登出",
+  "text.change password": "换密码",
+  "text.current password": "当前密码",
+  "text.new password": "新密码",
+  "text.confirm password": "确定密码",
+  "text.auth profile": "剖面",
+  "field.sign up": "注册",
+  "field.sign in": "登入",
+  "field.sign out": "登出",
+  "field.email": "电子邮件地址",
+  "field.password": "密码",
+  "field.token": "符记"
 }

@@ -1,15 +1,15 @@
 {
-  "text.signed in": "signed in",
-  "text.signed out": "signed out",
-  "text.change password": "change password",
-  "text.current password": "current password",
-  "text.new password": "new password",
-  "text.confirm password": "confirm password",
-  "text.auth profile": "user profile",
-  "label.sign up": "sign up",
-  "label.sign in": "sign in",
-  "label.sign out": "sign out",
-  "label.email": "email",
-  "label.password": "password",
-  "label.token": "token"
+  "text.signed in": "Signed In",
+  "text.signed out": "Signed Out",
+  "text.change password": "Change Password",
+  "text.current password": "Current Password",
+  "text.new password": "New Password",
+  "text.confirm password": "Confirm Password",
+  "text.auth profile": "User Profile",
+  "field.sign up": "Sign Up",
+  "field.sign in": "Sign In",
+  "field.sign out": "Sign Out",
+  "field.email": "Email Address",
+  "field.password": "Password",
+  "field.token": "Token"
 }

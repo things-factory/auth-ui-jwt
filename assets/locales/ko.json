@@ -6,10 +6,10 @@
   "text.new password": "새 패스워드",
   "text.confirm password": "패스워드 확인",
   "text.auth profile": "사용자 프로파일",
-  "label.sign up": "사용자 등록",
-  "label.sign in": "로그인",
-  "label.sign out": "로그아웃",
-  "label.email": "이메일",
-  "label.password": "패스워드",
-  "label.token": "인증 토큰"
+  "field.sign up": "사용자 등록",
+  "field.sign in": "로그인",
+  "field.sign out": "로그아웃",
+  "field.email": "이메일",
+  "field.password": "패스워드",
+  "field.token": "인증 토큰"
 }
