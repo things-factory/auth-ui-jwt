@@ -29,15 +29,15 @@ export class AuthSignin extends localize(i18next)(PageView) {
 
   render() {
     return html`
-      <h3><i18n-msg msgid="label.sign in"></i18n-msg></h3>
+      <h3><i18n-msg msgid="field.sign in"></i18n-msg></h3>
 
       <form id="signin" @submit="${e => this.handleSubmit(e)}">
-        <div class="field"><input type="email" name="email" placeholder=${i18next.t('label.email')} /></div>
-        <div class="field"><input type="password" name="password" placeholder=${i18next.t('label.password')} /></div>
-        <button class="ui button" type="submit"><i18n-msg msgid="label.sign in"></i18n-msg></button>
+        <div class="field"><input type="email" name="email" placeholder=${i18next.t('field.email')} /></div>
+        <div class="field"><input type="password" name="password" placeholder=${i18next.t('field.password')} /></div>
+        <button class="ui button" type="submit"><i18n-msg msgid="field.sign in"></i18n-msg></button>
       </form>
 
-      <a href=${auth.fullpage(auth.signupPage)}><i18n-msg msgid="label.sign up"></i18n-msg></a>
+      <a href=${auth.fullpage(auth.signupPage)}><i18n-msg msgid="field.sign up"></i18n-msg></a>
     `
   }
 

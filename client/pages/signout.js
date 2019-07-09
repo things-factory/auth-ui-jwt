@@ -19,8 +19,8 @@ export class AuthSignOut extends PageView {
 
   render() {
     return html`
-      <h3><i18n-msg msgid="label.sign out"></i18n-msg></h3>
-      <a href=${auth.fullpage(auth.signinPage)}><i18n-msg msgid="label.sign in"></i18n-msg></a>
+      <h3><i18n-msg msgid="field.sign out"></i18n-msg></h3>
+      <a href=${auth.fullpage(auth.signinPage)}><i18n-msg msgid="field.sign in"></i18n-msg></a>
     `
   }
 }

@@ -79,14 +79,14 @@ export class AuthProfile extends localize(i18next)(PageView) {
   render() {
     return html`
       <div>
-        <p><i18n-msg msgid="label.email"></i18n-msg> <b email>${this.email}</b></p>
+        <p><i18n-msg msgid="field.email"></i18n-msg> <b email>${this.email}</b></p>
       </div>
       <div>
-        <p><i18n-msg msgid="label.token"></i18n-msg></p>
+        <p><i18n-msg msgid="field.token"></i18n-msg></p>
         <div id="token">${this.accessToken}</div>
       </div>
       <div>
-        <button @click=${() => auth.signout()}><i18n-msg msgid="label.sign out"></i18n-msg></button>
+        <button @click=${() => auth.signout()}><i18n-msg msgid="field.sign out"></i18n-msg></button>
       </div>
     `
   }

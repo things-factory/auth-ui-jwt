@@ -84,7 +84,7 @@ export default function bootstrap() {
         <mwc-icon>close</mwc-icon>
       `,
       name: html`
-        <i18n-msg msgid="label.sign out"></i18n-msg>
+        <i18n-msg msgid="field.sign out"></i18n-msg>
       `,
       action: () => {
         auth.signout()
