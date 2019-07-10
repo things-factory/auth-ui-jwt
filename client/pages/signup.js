@@ -32,6 +32,7 @@ export class AuthSignup extends localize(i18next)(PageView) {
       <h3><i18n-msg msgid="field.sign up"></i18n-msg></h3>
 
       <form id="signin" @submit="${e => this.handleSubmit(e)}">
+        <div class="field"><input type="text" name="name" placeholder=${i18next.t('field.name')} /></div>
         <div class="field"><input type="email" name="email" placeholder=${i18next.t('field.email')} /></div>
         <div class="field"><input type="password" name="password" placeholder=${i18next.t('field.password')} /></div>
         <button class="ui button" type="submit"><i18n-msg msgid="field.sign up"></i18n-msg></button>
