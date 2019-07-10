@@ -1,15 +1,15 @@
 {
-  "text.signed in": "Telah Log Masuk",
-  "text.signed out": "Telah Log Keluar",
-  "text.change password": "Tukar Kata Laluan",
-  "text.current password": "Kata Laluan Semasa",
-  "text.new password": "Kata Laluan Baru",
-  "text.confirm password": "Sahkan Kata Laluan",
-  "text.auth profile": "Profil",
-  "field.sign in": "Log Masuk",
-  "field.sign up": "Daftar Akaun",
-  "field.sign out": "Log Keluar",
-  "field.email": "Alamat E-mel",
-  "field.password": "Kata Laluan",
-  "field.token": "Token"
+  "text.signed in": "telah log masuk",
+  "text.signed out": "telah log keluar",
+  "text.change password": "tukar kata laluan",
+  "text.current password": "kata laluan semasa",
+  "text.new password": "kata laluan baru",
+  "text.confirm password": "sahkan kata laluan",
+  "text.auth profile": "profil",
+  "field.sign in": "log masuk",
+  "field.sign up": "daftar akaun",
+  "field.sign out": "log keluar",
+  "field.email": "alamat emel",
+  "field.password": "kata laluan",
+  "field.token": "token"
 }
