@@ -139,6 +139,12 @@ export class AuthSignup extends localize(i18next)(PageView) {
     `
   }
 
+  get context() {
+    return {
+      fullbleed: true
+    }
+  }
+
   async handleSubmit(e) {
     e.preventDefault()
     const form = e.target
