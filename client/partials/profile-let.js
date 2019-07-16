@@ -19,12 +19,16 @@ export class ProfileLet extends connect(store)(LitElement) {
         padding: 20px 0px 20px 0px;
         text-align: center;
       }
+
+      p {
+        margin: 0;
+      }
     `
   }
 
   render() {
     return html`
-      <p style="margin:0">${this.profile && this.profile.email}</p>
+      <p></p>${this.profile && this.profile.email}</p>
     `
   }
 
