@@ -2,30 +2,26 @@ import { html } from 'lit-html'
 
 import '@material/mwc-icon'
 
-import { store } from '@things-factory/shell'
+import { store, navigate } from '@things-factory/shell'
 import { auth } from '@things-factory/auth-base'
 import { i18next } from '@things-factory/i18n-base'
-import { APPEND_APP_TOOL, TOOL_POSITION } from '@things-factory/layout-base'
 import { ADD_MORENDA } from '@things-factory/more-base'
 import { ADD_SETTING } from '@things-factory/setting-base'
 
 import './pages/change-password'
 
 export default function bootstrap() {
-  function onProfile(profile) {
-    store.dispatch({
-      type: ADD_SETTING,
-      setting: {
-        seq: 10,
-        template: html`
-          <div style="background-color: #e5e5e5;height: 50px;padding: 20px 0px 20px 0px;text-align: center;">
-            <p style="margin:0"><b>${profile.name}</b></p>
-            <p style="margin:0">${profile.email}</p>
-          </div>
-        `
-      }
-    })
-  }
+  import('./partials/profile-let')
+
+  store.dispatch({
+    type: ADD_SETTING,
+    setting: {
+      seq: 10,
+      template: html`
+        <profile-let></profile-let>
+      `
+    }
+  })
 
   function onAuthentication(on) {
     document.dispatchEvent(
@@ -54,7 +50,6 @@ export default function bootstrap() {
     )
   }
 
-  auth.on('profile', onProfile)
   auth.on('signin', () => {
     onAuthentication(true)
   })
@@ -63,20 +58,23 @@ export default function bootstrap() {
   })
   auth.on('error', onError)
 
-  /* add user app-tool */
+  /* add user profile morenda */
   store.dispatch({
-    type: APPEND_APP_TOOL,
-    tool: {
-      template: html`
-        <a href="profile" style="color: inherit; text-decoration: none; display: flex;">
-          <mwc-icon>account_circle</mwc-icon>
-        </a>
+    type: ADD_MORENDA,
+    morenda: {
+      icon: html`
+        <mwc-icon>account_circle</mwc-icon>
       `,
-      position: TOOL_POSITION.REAR
+      name: html`
+        <i18n-msg msgid="text.auth profile"></i18n-msg>
+      `,
+      action: () => {
+        navigate('profile')
+      }
     }
   })
 
-  /* add user morenda */
+  /* add sign-out morenda */
   store.dispatch({
     type: ADD_MORENDA,
     morenda: {
@@ -92,6 +90,7 @@ export default function bootstrap() {
     }
   })
 
+  /* add change password setting */
   store.dispatch({
     type: ADD_SETTING,
     setting: {
