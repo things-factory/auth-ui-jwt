@@ -17,29 +17,50 @@ export class AuthProfile extends localize(i18next)(PageView) {
       css`
         :host {
           display: block;
-
-          text-transform: capitalize;
+          background-color: var(--main-section-background-color);
         }
-
-        div {
+        .wrap {
+          max-width: 550px;
+          margin: 15px auto;
           text-align: center;
         }
-
-        [email] {
-          text-transform: none;
+        :host *:focus {
+          outline: none;
         }
-
+        .user {
+          background: url(../assets/images/icon-profile.png) center top no-repeat;
+          margin-top: 5%;
+          padding: 210px 20px 20px 20px;
+          color: var(--secondary-color);
+          font: var(--header-bar-title);
+          text-align: center;
+        }
         #token {
-          display: inline-block;
-          max-width: 500px;
+          display: block;
           overflow-wrap: break-word;
-          text-align: left;
-          border: 1px solid tomato;
-          padding: 2px;
+          text-align: justify;
+          font: normal 12px var(--theme-font);
         }
-
+        label {
+          font: bold 14px var(--theme-font);
+          color: var(--primary-color);
+        }
         button {
-          text-transform: uppercase;
+          background-color: var(--button-background-color);
+          margin: var(--button-margin);
+          height: var(--button-height);
+          border-radius: var(--button-radius);
+          border: var(--button-border);
+          font: var(--button-font);
+          color: var(--button-color);
+          cursor: pointer;
+        }
+        button:hover,
+        button:active {
+          background-color: var(--button-active-background-color);
+        }
+        button:active {
+          border: var(--button-active-border);
         }
       `
     ]
@@ -78,15 +99,18 @@ export class AuthProfile extends localize(i18next)(PageView) {
 
   render() {
     return html`
-      <div>
-        <p><i18n-msg msgid="field.email"></i18n-msg> <b email>${this.email}</b></p>
-      </div>
-      <div>
-        <p><i18n-msg msgid="field.token"></i18n-msg></p>
-        <div id="token">${this.accessToken}</div>
-      </div>
-      <div>
+      <div class="wrap">
+        <div class="user">
+          ${this.email}
+        </div>
+
+        <div>
+          <label><i18n-msg msgid="field.token"></i18n-msg></label>
+          <span id="token">${this.accessToken}</span>
+        </div>
+
         <button @click=${() => auth.signout()}><i18n-msg msgid="field.sign out"></i18n-msg></button>
+        <button>change password</button>
       </div>
     `
   }
