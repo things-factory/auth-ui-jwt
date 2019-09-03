@@ -20,7 +20,7 @@ export class AuthProfile extends localize(i18next)(PageView) {
           background-color: var(--main-section-background-color);
         }
         .wrap {
-          max-width: 550px;
+          max-width: var(--profile-wrap-max-width);
           margin: 15px auto;
           text-align: center;
         }
