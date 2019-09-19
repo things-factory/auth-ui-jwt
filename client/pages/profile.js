@@ -7,8 +7,7 @@ import { localize, i18next } from '@things-factory/i18n-base'
 export class AuthProfile extends localize(i18next)(PageView) {
   static get properties() {
     return {
-      email: String,
-      accessToken: String
+      email: String
     }
   }
 
@@ -20,7 +19,7 @@ export class AuthProfile extends localize(i18next)(PageView) {
           background-color: var(--main-section-background-color);
         }
         .wrap {
-          max-width: var(--profile-wrap-max-width);
+          max-width: 550px;
           margin: 15px auto;
           text-align: center;
         }
@@ -35,12 +34,7 @@ export class AuthProfile extends localize(i18next)(PageView) {
           font: var(--header-bar-title);
           text-align: center;
         }
-        #token {
-          display: block;
-          overflow-wrap: break-word;
-          text-align: justify;
-          font: normal 12px var(--theme-font);
-        }
+
         label {
           font: bold 14px var(--theme-font);
           color: var(--primary-color);
@@ -69,18 +63,15 @@ export class AuthProfile extends localize(i18next)(PageView) {
   firstUpdated() {
     auth.on('signin', accessToken => {
       this.setCredential(null)
-      this.accessToken = accessToken
     })
     auth.on('signout', () => {
       this.setCredential(null)
-      this.accessToken = ''
     })
     auth.on('profile', credential => {
       this.setCredential(credential)
     })
 
     this.setCredential(auth.credential)
-    this.accessToken = auth.accessToken
   }
 
   setCredential(credential) {
@@ -102,11 +93,6 @@ export class AuthProfile extends localize(i18next)(PageView) {
       <div class="wrap">
         <div class="user">
           ${this.email}
-        </div>
-
-        <div>
-          <label><i18n-msg msgid="field.token"></i18n-msg></label>
-          <span id="token">${this.accessToken}</span>
         </div>
 
         <button @click=${() => auth.signout()}><i18n-msg msgid="field.sign out"></i18n-msg></button>
