@@ -9,19 +9,8 @@ import { ADD_MORENDA } from '@things-factory/more-base'
 import { ADD_SETTING } from '@things-factory/setting-base'
 
 import './pages/change-password'
-import './partials/profile-let'
 
 export default function bootstrap() {
-  store.dispatch({
-    type: ADD_SETTING,
-    setting: {
-      seq: 10,
-      template: html`
-        <profile-let></profile-let>
-      `
-    }
-  })
-
   function onAuthentication(on) {
     document.dispatchEvent(
       new CustomEvent('notify', {
