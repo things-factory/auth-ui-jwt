@@ -8,13 +8,11 @@ export class ChangePassword extends localize(i18next)(LitElement) {
     return [
       css`
         input {
-          border-top: none;
-          border-left: none;
-          border-right: none;
-          border-bottom-color: #32526a;
-          border-bottom-width: 1px;
+          border: none;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+          padding: 5px;
+          font: normal 15px var(--theme-font);
           width: 100%;
-          height: 30px;
         }
 
         div.field {
@@ -27,7 +25,19 @@ export class ChangePassword extends localize(i18next)(LitElement) {
         }
 
         button {
-          text-transform: uppercase;
+          background-color: var(--secondary-color, #394e64);
+          margin: 2px 2px 10px 2px;
+          height: var(--button-height, 28px);
+          color: var(--button-color, #fff);
+          font: var(--button-font);
+          border-radius: var(--button-radius, 5px);
+          border: var(--button-border, 1px solid transparent);
+          line-height: 1.5;
+        }
+        button:hover,
+        button:active {
+          background-color: var(--button-active-background-color, #22a6a7);
+          border: var(--button-active-border);
         }
       `
     ]
