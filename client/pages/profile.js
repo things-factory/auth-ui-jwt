@@ -4,6 +4,8 @@ import { PageView } from '@things-factory/shell'
 import { auth } from '@things-factory/auth-base'
 import { localize, i18next } from '@things-factory/i18n-base'
 
+import './change-password'
+
 export class AuthProfile extends localize(i18next)(PageView) {
   static get properties() {
     return {
@@ -95,8 +97,8 @@ export class AuthProfile extends localize(i18next)(PageView) {
           ${this.email}
         </div>
 
-        <button @click=${() => auth.signout()}><i18n-msg msgid="field.sign out"></i18n-msg></button>
-        <button>change password</button>
+        <i18n-msg msgid="text.change password"></i18n-msg>
+        <change-password></change-password>
       </div>
     `
   }

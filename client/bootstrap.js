@@ -6,9 +6,6 @@ import { store, navigate } from '@things-factory/shell'
 import { auth } from '@things-factory/auth-base'
 import { i18next } from '@things-factory/i18n-base'
 import { ADD_MORENDA } from '@things-factory/more-base'
-import { ADD_SETTING } from '@things-factory/setting-base'
-
-import './pages/change-password'
 
 export default function bootstrap() {
   function onAuthentication(on) {
@@ -75,20 +72,6 @@ export default function bootstrap() {
       action: () => {
         auth.signout()
       }
-    }
-  })
-
-  /* add change password setting */
-  store.dispatch({
-    type: ADD_SETTING,
-    setting: {
-      seq: 30,
-      template: html`
-        <setting-let>
-          <i18n-msg slot="title" msgid="text.change password"></i18n-msg>
-          <change-password slot="content"></change-password>
-        </setting-let>
-      `
     }
   })
 }
