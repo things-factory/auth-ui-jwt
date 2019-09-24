@@ -7,12 +7,19 @@ export class ChangePassword extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       css`
+        *:focus {
+          outline: none;
+        }
         input {
-          border: none;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-          padding: 5px;
-          font: normal 15px var(--theme-font);
-          width: 100%;
+          border: var(--change-password-field-border);
+          border-radius: var(--change-password-field-border-radius);
+          padding: var(--change-password-field-padding);
+
+          font: var(--change-password-field-font);
+          width: var(--change-password-field-width);
+        }
+        input:focus {
+          border: 1px solid var(--focus-background-color);
         }
 
         div.field {
