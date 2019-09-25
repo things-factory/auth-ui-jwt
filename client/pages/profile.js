@@ -30,7 +30,7 @@ export class AuthProfile extends localize(i18next)(PageView) {
         }
         .user {
           background: url(../assets/images/icon-profile.png) center top no-repeat;
-          margin-top: 5%;
+          margin: var(--profile-icon-margin);
           padding: 210px 20px 20px 20px;
           color: var(--secondary-color);
           font: var(--header-bar-title);
