@@ -6,6 +6,7 @@ import { store, navigate } from '@things-factory/shell'
 import { auth } from '@things-factory/auth-base'
 import { i18next } from '@things-factory/i18n-base'
 import { ADD_MORENDA } from '@things-factory/more-base'
+import { subscribe, unsubscribe } from '@things-factory/shell'
 
 export default function bootstrap() {
   function onAuthentication(on) {
@@ -33,13 +34,17 @@ export default function bootstrap() {
         }
       })
     )
+
+    unsubscribe()
   }
 
   auth.on('signin', () => {
     onAuthentication(true)
+    subscribe()
   })
   auth.on('signout', () => {
     onAuthentication(false)
+    unsubscribe()
   })
   auth.on('error', onError)
 
