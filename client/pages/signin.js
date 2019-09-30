@@ -13,6 +13,10 @@ export class AuthSignin extends localize(i18next)(PageView) {
           background-color: var(--auth-background);
         }
 
+        :host *:focus {
+          outline: none;
+        }
+
         ::placeholder {
           color: var(--opacity-dark-color);
           font: var(--auth-input-font);
@@ -79,8 +83,6 @@ export class AuthSignin extends localize(i18next)(PageView) {
             color: #fff;
           }
           a {
-            position: absolute;
-            bottom: 50px;
             color: #fff;
           }
         }
