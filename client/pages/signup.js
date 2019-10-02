@@ -114,11 +114,13 @@ export class AuthSignup extends localize(i18next)(PageView) {
   }
 
   render() {
+    var { icon, title, description } = this.applicationMeta
+
     return html`
       <div class="wrap">
         <div class="auth-brand">
-          <span class="name">hatio</span>
-          <span class="welcome-msg">welcom to the hatio..</span>
+          <span class="name">${title}</span>
+          <span class="welcome-msg">${description}</span>
         </div>
 
         <div class="auth-form">
@@ -159,6 +161,22 @@ export class AuthSignup extends localize(i18next)(PageView) {
     await auth.signup(json)
 
     form.reset()
+  }
+
+  get applicationMeta() {
+    if (!this._applicationMeta) {
+      var iconLink = document.querySelector('link[rel="application-icon"]')
+      var titleMeta = document.querySelector('meta[name="application-name"]')
+      var descriptionMeta = document.querySelector('meta[name="application-description"]')
+
+      this._applicationMeta = {
+        icon: iconLink ? iconLink.href : logo,
+        title: titleMeta ? titleMeta.content : 'Things Factory',
+        description: descriptionMeta ? descriptionMeta.content : 'Reimagining Software'
+      }
+    }
+
+    return this._applicationMeta
   }
 }
 
