@@ -66,7 +66,7 @@ export default function bootstrap() {
     type: ADD_MORENDA,
     morenda: {
       icon: html`
-        <mwc-icon>close</mwc-icon>
+        <mwc-icon>exit_to_app</mwc-icon>
       `,
       name: html`
         <i18n-msg msgid="field.sign out"></i18n-msg>
