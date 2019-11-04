@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/auth-ui-jwt",
-  "version": "0.2.9",
+  "version": "0.9.0",
   "main": "dist-server/index.js",
   "browser": "client/index.js",
   "things-factory": true,
@@ -24,11 +24,11 @@
   },
   "dependencies": {
     "@material/mwc-icon": "^0.8.0",
-    "@things-factory/auth-base": "*",
-    "@things-factory/auth-provider-jwt": "*",
-    "@things-factory/i18n-base": "*",
-    "@things-factory/more-base": "*",
-    "@things-factory/shell": "*"
+    "@things-factory/auth-base": "^0.9.0",
+    "@things-factory/auth-provider-jwt": "^0.9.0",
+    "@things-factory/i18n-base": "^0.9.0",
+    "@things-factory/more-base": "^0.9.0",
+    "@things-factory/shell": "^0.9.0"
   },
   "devDependencies": {
     "@things-factory/tester": "*"
