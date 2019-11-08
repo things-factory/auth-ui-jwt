@@ -1,5 +1,5 @@
-import route from './client/route'
 import bootstrap from './client/bootstrap'
+import route from './client/route'
 
 export default {
   route,
@@ -15,6 +15,10 @@ export default {
     {
       tagname: 'auth-profile',
       page: 'profile'
+    },
+    {
+      tagname: 'auth-domain-select',
+      page: 'domain-select'
     }
   ],
   bootstrap

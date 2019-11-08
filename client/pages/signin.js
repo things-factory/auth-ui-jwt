@@ -1,8 +1,7 @@
-import { html, css } from 'lit-element'
-
-import { PageView } from '@things-factory/shell'
 import { auth } from '@things-factory/auth-base'
-import { localize, i18next } from '@things-factory/i18n-base'
+import { i18next, localize } from '@things-factory/i18n-base'
+import { PageView } from '@things-factory/shell'
+import { css, html } from 'lit-element'
 
 export class AuthSignin extends localize(i18next)(PageView) {
   static get styles() {
@@ -158,6 +157,23 @@ export class AuthSignin extends localize(i18next)(PageView) {
     for (const [key, value] of formData.entries()) {
       json[key] = value
     }
+
+    var profileHandler = ({ credential, domains }) => {
+      var domain = credential.domain
+      var routePath
+
+      if (!domain) {
+        if (domains.length == 1) routePath = `/domain/${domains[0].subdomain}/`
+        else routePath = '/domain-select'
+      } else {
+        routePath = `/domain/${credential.domain.subdomain}`
+      }
+
+      auth.route(routePath)
+      auth.off('profile', profileHandler)
+    }
+
+    auth.on('profile', profileHandler)
 
     await auth.signin(json)
 
