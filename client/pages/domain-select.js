@@ -68,7 +68,7 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
           id="domain-select"
           @change=${e => {
             var domain = e.target.value
-            if (domain) auth.route(`/domain/${domain}/`)
+            if (domain) location.pathname = `/domain/${domain}/`
           }}
         >
           <option value=""></option>
