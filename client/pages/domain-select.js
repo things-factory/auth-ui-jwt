@@ -26,7 +26,7 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
           outline: none;
         }
         .user {
-          background: url(../assets/images/icon-profile.png) center top no-repeat;
+          background: url(/assets/images/icon-profile.png) center top no-repeat;
           margin: var(--profile-icon-margin);
           padding: 180px 20px 20px 20px;
           color: var(--secondary-color);
