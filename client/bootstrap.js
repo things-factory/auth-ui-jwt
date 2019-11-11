@@ -37,11 +37,15 @@ export default function bootstrap() {
 
   auth.on('signin', () => {
     onAuthentication(true)
-    subscribe()
   })
   auth.on('signout', () => {
     onAuthentication(false)
     unsubscribe()
+  })
+  auth.on('profile', ({ credential, domains }) => {
+    subscribe({
+      ...credential
+    })
   })
   auth.on('error', onError)
 
