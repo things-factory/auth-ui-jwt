@@ -6,6 +6,7 @@
   "text.new password": "新密码",
   "text.confirm password": "确定密码",
   "text.auth profile": "剖面",
+  "text.select domain": "select domain",
   "field.sign up": "注册",
   "field.sign in": "登入",
   "field.sign out": "登出",

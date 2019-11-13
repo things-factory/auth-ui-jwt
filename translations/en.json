@@ -6,6 +6,7 @@
   "text.new password": "new password",
   "text.confirm password": "confirm password",
   "text.auth profile": "user profile",
+  "text.select domain": "select domain",
   "field.sign up": "sign up",
   "field.sign in": "sign in",
   "field.sign out": "sign out",

@@ -6,6 +6,7 @@
   "text.new password": "kata laluan baru",
   "text.confirm password": "sahkan kata laluan",
   "text.auth profile": "profil",
+  "text.select domain": "select domain",
   "field.sign in": "log masuk",
   "field.sign up": "daftar akaun",
   "field.sign out": "log keluar",
