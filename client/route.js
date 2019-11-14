@@ -15,5 +15,9 @@ export default function route(page) {
     case 'domain-select':
       import('./pages/domain-select.js')
       return page
+
+    case 'activate':
+      import('./pages/activate.js')
+      return page
   }
 }

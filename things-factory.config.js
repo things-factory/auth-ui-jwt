@@ -19,6 +19,10 @@ export default {
     {
       tagname: 'auth-domain-select',
       page: 'domain-select'
+    },
+    {
+      tagname: 'auth-activate',
+      page: 'activate'
     }
   ],
   bootstrap
