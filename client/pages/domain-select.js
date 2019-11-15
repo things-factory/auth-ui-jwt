@@ -62,21 +62,27 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
   render() {
     return html`
       <div class="wrap">
-        <label for="domain-select"><i18n-msg msgid="text.select domain"></i18n-msg></label>
-        <select
-          id="domain-select"
-          @change=${e => {
-            var domain = e.target.value
-            if (domain) location.pathname = `/domain/${domain}/`
-          }}
-        >
-          <option value=""></option>
-          ${(this.domains || []).map(
-            domain => html`
-              <option value="${domain.subdomain}">${domain.name}</option>
+        ${this.domains && this.domains.length
+          ? html`
+              <label for="domain-select"><i18n-msg msgid="text.select domain"></i18n-msg></label>
+              <select
+                id="domain-select"
+                @change=${e => {
+                  var domain = e.target.value
+                  if (domain) location.pathname = `/domain/${domain}/`
+                }}
+              >
+                <option value=""></option>
+                ${(this.domains || []).map(
+                  domain => html`
+                    <option value="${domain.subdomain}">${domain.name}</option>
+                  `
+                )}
+              </select>
             `
-          )}
-        </select>
+          : html`
+              <span><i18n-msg msgid="text.no domain available"></i18n-msg></span>
+            `}
       </div>
     `
   }
