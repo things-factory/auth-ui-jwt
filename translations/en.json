@@ -7,10 +7,12 @@
   "text.confirm password": "confirm password",
   "text.auth profile": "user profile",
   "text.select domain": "select domain",
+  "text.your account is not activated.": "your account is not activated.",
   "field.sign up": "sign up",
   "field.sign in": "sign in",
   "field.sign out": "sign out",
   "field.email": "email address",
   "field.password": "password",
-  "field.token": "token"
+  "field.token": "token",
+  "label.resend": "resend"
 }

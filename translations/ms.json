@@ -7,10 +7,12 @@
   "text.confirm password": "sahkan kata laluan",
   "text.auth profile": "profil",
   "text.select domain": "select domain",
+  "text.your account is not activated.": "your account is not activated.",
   "field.sign in": "log masuk",
   "field.sign up": "daftar akaun",
   "field.sign out": "log keluar",
   "field.email": "alamat emel",
   "field.password": "kata laluan",
-  "field.token": "token"
+  "field.token": "token",
+  "label.resend": "resend"
 }

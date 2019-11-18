@@ -7,10 +7,12 @@
   "text.confirm password": "确定密码",
   "text.auth profile": "剖面",
   "text.select domain": "select domain",
+  "text.your account is not activated.": "your account is not activated.",
   "field.sign up": "注册",
   "field.sign in": "登入",
   "field.sign out": "登出",
   "field.email": "电子邮件地址",
   "field.password": "密码",
-  "field.token": "符记"
+  "field.token": "符记",
+  "label.resend": "resend"
 }

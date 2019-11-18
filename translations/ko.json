@@ -7,10 +7,12 @@
   "text.confirm password": "패스워드 확인",
   "text.auth profile": "사용자 프로파일",
   "text.select domain": "도메인 선택",
+  "text.your account is not activated.": "계정이 활성화되지 않았습니다.",
   "field.sign up": "사용자 등록",
   "field.sign in": "로그인",
   "field.sign out": "로그아웃",
   "field.email": "이메일",
   "field.password": "패스워드",
-  "field.token": "인증 토큰"
+  "field.token": "인증 토큰",
+  "label.resend": "재전송"
 }
