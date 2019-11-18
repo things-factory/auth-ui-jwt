@@ -94,7 +94,7 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
   }
 
   stateChanged(state) {
-    this.domains = state.auth.domains
+    this.domains = state.app.domains
   }
 }
 
