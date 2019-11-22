@@ -1,10 +1,9 @@
-import { html, css } from 'lit-element'
-
-import { PageView } from '@things-factory/shell'
 import { auth } from '@things-factory/auth-base'
-import { localize, i18next } from '@things-factory/i18n-base'
-
-import './change-password'
+import { i18next, localize } from '@things-factory/i18n-base'
+import '@things-factory/i18n-ui/client/components/i18n-selector'
+import { PageView } from '@things-factory/shell'
+import { css, html } from 'lit-element'
+import '../components/change-password'
 
 export class AuthProfile extends localize(i18next)(PageView) {
   static get properties() {
@@ -21,9 +20,10 @@ export class AuthProfile extends localize(i18next)(PageView) {
           background-color: var(--main-section-background-color);
         }
         .wrap {
-          max-width: 550px;
+          max-width: var(--profile-wrap-max-width, 400px);
           margin: 15px auto;
-          text-align: center;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
         }
         :host *:focus {
           outline: none;
@@ -37,10 +37,30 @@ export class AuthProfile extends localize(i18next)(PageView) {
           text-align: center;
         }
 
+        hr {
+          width: 100%;
+          border: dotted 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .wrap * {
+          grid-column: span 2;
+        }
+
         label {
           font: bold 14px var(--theme-font);
           color: var(--primary-color);
+          text-transform: capitalize;
+          grid-column: 1;
         }
+
+        .wrap *.inline {
+          grid-column: unset;
+        }
+
+        i18n-selector {
+          --i18n-selector-field-width: var(--auth-input-field-width);
+        }
+
         button {
           background-color: var(--button-background-color);
           margin: var(--button-margin);
@@ -97,10 +117,47 @@ export class AuthProfile extends localize(i18next)(PageView) {
           ${this.email}
         </div>
 
-        <i18n-msg msgid="text.change password"></i18n-msg>
-        <change-password></change-password>
+        <label for="locale"><i18n-msg slot="title" msgid="label.language"></i18n-msg></label>
+        <i18n-selector
+          id="locale"
+          @change=${e => {
+            this.onLocaleChanged(e.detail)
+          }}
+        ></i18n-selector>
+
+        <hr />
+
+        <label for="change-password">
+          <i18n-msg msgid="label.password"></i18n-msg>
+        </label>
+        <change-password id="change-password"></change-password>
       </div>
     `
+  }
+
+  async onLocaleChanged(value) {
+    if (!value) return
+
+    var oldLocale = i18next.language
+    var localeEl = this.renderRoot.querySelector('#locale')
+
+    var { success, detail } = await auth.updateProfile({
+      locale: value
+    })
+
+    if (success) {
+      i18next.changeLanguage(value)
+    } else {
+      localeEl.value = oldLocale
+      document.dispatchEvent(
+        new CustomEvent('notify', {
+          detail: {
+            level: 'error',
+            message: detail.message
+          }
+        })
+      )
+    }
   }
 }
 
