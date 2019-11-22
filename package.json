@@ -27,6 +27,7 @@
     "@things-factory/auth-base": "^1.0.0-alpha.1",
     "@things-factory/auth-provider-jwt": "^1.0.0-alpha.1",
     "@things-factory/i18n-base": "^1.0.0-alpha.1",
+    "@things-factory/i18n-ui": "^1.0.0-alpha.1",
     "@things-factory/more-base": "^1.0.0-alpha.1",
     "@things-factory/shell": "^1.0.0-alpha.1"
   },

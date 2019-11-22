@@ -1,5 +1,6 @@
 import { auth } from '@things-factory/auth-base'
 import { i18next, localize } from '@things-factory/i18n-base'
+import '@things-factory/i18n-ui/client/components/i18n-selector'
 import { PageView } from '@things-factory/shell'
 import { css, html } from 'lit-element'
 
@@ -24,6 +25,11 @@ export class AuthSignin extends localize(i18next)(PageView) {
         .wrap {
           background: url('/assets/images/bg-auth-ui.png') center bottom no-repeat;
         }
+
+        .wrap * {
+          box-sizing: border-box;
+        }
+
         .auth-brand {
           color: #fff;
         }
@@ -34,35 +40,76 @@ export class AuthSignin extends localize(i18next)(PageView) {
         .auth-brand .welcome-msg {
           font: var(--auth-brand-welcome-msg);
         }
+
+        form {
+          grid-column: span 4;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-gap: 15px;
+          align-items: center;
+        }
+
         h3 {
+          grid-column: span 4;
           margin: 40px 0 0 0;
           font: var(--auth-title-font);
           color: var(--auth-title-color);
         }
+
+        .field {
+          grid-column: span 2;
+        }
+
         .field input {
+          outline: none;
+          -webkit-appearance: none;
           width: 100%;
           background-color: transparent;
-          margin-top: 15px;
           border: none;
           border-bottom: var(--auth-input-border);
           color: var(--auth-input-color);
           font: var(--auth-input-font);
         }
+
         button {
-          float: right;
+          grid-column: 2;
           background-color: var(--auth-button-background-color);
           border-radius: 10px;
           border: none;
-          margin-top: 20px;
+          margin: 5px 0;
           padding: var(--auth-button-padding);
           font: var(--auth-button-font);
           color: #fff;
           box-shadow: var(--box-shadow);
         }
-        a {
-          float: left;
-          margin-top: 120px;
+        .wrap a {
+          justify-self: flex-start;
           color: var(--auth-title-color);
+        }
+
+        #locale-area {
+          display: flex;
+          grid-column: span 4;
+          margin-top: 40px;
+        }
+
+        #locale-area > label {
+          display: flex;
+          align-items: center;
+          color: var(--secondary-text-color);
+          --mdc-icon-size: 16px;
+        }
+
+        #locale-selector {
+          font-size: 16px;
+          width: 100%;
+        }
+
+        #locale-selector {
+          --i18n-selector-field-border: none;
+          --i18n-selector-field-background-color: none;
+          --i18n-selector-field-font-size: 14px;
+          --i18n-selector-field-color: var(--secondary-color);
         }
 
         @media (max-width: 450px) {
@@ -81,13 +128,15 @@ export class AuthSignin extends localize(i18next)(PageView) {
             border-bottom: var(--auth-input-border-light);
             color: #fff;
           }
-          a {
+          .wrap a {
             color: #fff;
           }
         }
 
         @media (min-width: 451px) {
           .wrap {
+            display: grid;
+            grid-template-columns: 250px 1fr;
             border-radius: 20px;
             box-shadow: var(--box-shadow);
             width: 50vw;
@@ -99,15 +148,14 @@ export class AuthSignin extends localize(i18next)(PageView) {
             background-color: #fff;
           }
           .auth-brand {
-            float: left;
-            width: 190px;
             height: 100%;
             padding: 50px 30px;
           }
           .auth-form {
-            width: calc(100% - 310px);
-            padding: 30px 30px 50px 30px;
-            float: right;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            padding: 30px;
+            grid-gap: 15px;
           }
         }
       `
@@ -132,10 +180,24 @@ export class AuthSignin extends localize(i18next)(PageView) {
             <div class="field">
               <input type="password" name="password" placeholder=${i18next.t('field.password')} />
             </div>
+            <input id="locale-input" type="hidden" name="locale">
+            <a href=${auth.fullpage(auth.signupPage)}><i18n-msg msgid="field.sign up"></i18n-msg></a>
             <button class="ui button" type="submit"><i18n-msg msgid="field.sign in"></i18n-msg></button>
           </form>
+          <div id="locale-area">
+            <label for="locale-selector"><mwc-icon>language</mwc-icon></label>
+            <i18n-selector id="locale-selector" value=${i18next.language || 'en-US'} @change=${e => {
+              var locale = e.detail
+              if(!locale) return
 
-          <a href=${auth.fullpage(auth.signupPage)}><i18n-msg msgid="field.sign up"></i18n-msg></a>
+              var localeInput = this.renderRoot.querySelector('#locale-input')
+              localeInput.value = locale
+
+              i18next.changeLanguage(locale)
+            }}></i18n-selector>
+          </div>
+
+
         </div>
       </div>
     `
