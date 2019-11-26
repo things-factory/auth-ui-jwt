@@ -23,7 +23,7 @@ export class AbstractSign extends localize(i18next)(PageView) {
         <div class="auth-form">
           <h3><i18n-msg msgid="field.${this.pageName}"></i18n-msg></h3>
 
-          <form id="signin" @submit="${e => this.handleSubmit(e)}">
+          <form id="form" @submit="${e => this._onSubmit(e)}" @focusout=${e => this.onFocusout(e)}>
             ${this.formfields}
           </form>
           <div id="locale-area">
@@ -51,7 +51,9 @@ export class AbstractSign extends localize(i18next)(PageView) {
 
   get formfields() {
     return html`
-      <div class="field"><input type="email" name="email" placeholder=${i18next.t('field.email')} required /></div>
+      <div class="field">
+        <input type="email" name="email" placeholder=${i18next.t('field.email')} required />
+      </div>
       <div class="field">
         <input type="password" name="password" placeholder=${i18next.t('field.password')} required />
       </div>
@@ -65,6 +67,11 @@ export class AbstractSign extends localize(i18next)(PageView) {
     return {
       fullbleed: true
     }
+  }
+
+  async _onSubmit(e) {
+    checkValidity()
+    handleSubmit(e)
   }
 
   async checkValidity() {}
@@ -86,4 +93,6 @@ export class AbstractSign extends localize(i18next)(PageView) {
 
     return this._applicationMeta
   }
+
+  onFocusout() {}
 }
