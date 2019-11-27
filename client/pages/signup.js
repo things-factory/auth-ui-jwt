@@ -93,10 +93,6 @@ export class AuthSignup extends AbstractSign {
 
     form.reset()
   }
-
-  onFocusout(e) {
-    e.currentTarget.reportValidity()
-  }
 }
 
 customElements.define('auth-signup', AuthSignup)
