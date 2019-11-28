@@ -1,3 +1,6 @@
+import '@material/mwc-button'
+import '@material/mwc-icon'
+import '@material/mwc-textfield'
 import { auth } from '@things-factory/auth-base'
 import { i18next, localize } from '@things-factory/i18n-base'
 import '@things-factory/i18n-ui/client/components/i18n-selector'
@@ -23,7 +26,13 @@ export class AbstractSign extends localize(i18next)(PageView) {
         <div class="auth-form">
           <h3><i18n-msg msgid="field.${this.pageName}"></i18n-msg></h3>
 
-          <form id="form" @submit="${e => this._onSubmit(e)}">
+          <form
+            id="form"
+            action="#"
+            @keypress=${e => {
+              if (e.key == 'Enter') this._onSubmit(e)
+            }}
+          >
             ${this.formfields}
           </form>
           <div id="locale-area">
@@ -47,19 +56,39 @@ export class AbstractSign extends localize(i18next)(PageView) {
     `
   }
 
+  firstUpdated() {
+    this.formEl.reset = () => {
+      this.formElements.filter(el => !(el.hidden || el.type == 'hidden')).forEach(el => (el.value = ''))
+    }
+  }
+
   get pageName() {}
+
+  get formEl() {
+    return this.renderRoot.querySelector('#form')
+  }
+
+  get formElements() {
+    return Array.from(this.formEl.querySelectorAll('[name]'))
+  }
 
   get formfields() {
     return html`
-      <div class="field">
-        <input type="email" name="email" placeholder=${i18next.t('field.email')} required />
-      </div>
-      <div class="field">
-        <input type="password" name="password" placeholder=${i18next.t('field.password')} required />
-      </div>
       <input id="locale-input" type="hidden" name="locale" .value="${i18next.language}" />
-      <a href=${auth.fullpage(auth.signupPage)}><i18n-msg msgid="field.sign up"></i18n-msg></a>
-      <button class="ui button" type="submit"><i18n-msg msgid="field.${this.pageName}"></i18n-msg></button>
+
+      <div class="field">
+        <mwc-textfield name="email" type="email" label=${i18next.t('field.email')} required></mwc-textfield>
+      </div>
+      <div class="field">
+        <mwc-textfield name="password" type="password" label=${i18next.t('field.password')} required></mwc-textfield>
+      </div>
+
+      <a class="link" href=${auth.fullpage(auth.signupPage)}>
+        <mwc-button><i18n-msg msgid="field.sign up"></i18n-msg></mwc-button
+      ></a>
+      <mwc-button class="ui button" type="submit" raised @click=${e => this._onSubmit(e)}>
+        <i18n-msg msgid="field.${this.pageName}"> </i18n-msg>
+      </mwc-button>
     `
   }
 
@@ -70,11 +99,12 @@ export class AbstractSign extends localize(i18next)(PageView) {
   }
 
   async _onSubmit(e) {
-    this.checkValidity()
-    this.handleSubmit(e)
+    if (this.checkValidity()) this.handleSubmit(e)
   }
 
-  async checkValidity() {}
+  checkValidity() {
+    return this.formElements.every(el => el.checkValidity())
+  }
 
   async handleSubmit(e) {}
 

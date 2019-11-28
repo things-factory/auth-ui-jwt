@@ -10,6 +10,10 @@ export const AUTH_STYLE_SIGN = css`
     outline: none;
   }
 
+  :host * {
+    box-sizing: border-box;
+  }
+
   ::placeholder {
     color: var(--opacity-dark-color);
     font: var(--auth-input-font);
@@ -51,41 +55,38 @@ export const AUTH_STYLE_SIGN = css`
     margin: 40px 0 0 0;
     font: var(--auth-title-font);
     color: var(--auth-title-color);
+    text-transform: uppercase;
   }
 
   .field {
     grid-column: 1 / -1;
   }
 
-  .field input {
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+  .field mwc-textfield {
     width: 100%;
-    background-color: transparent;
-    border: none;
-    border-radius: 0;
-    border-bottom: var(--auth-input-border);
-    color: var(--auth-input-color);
+    --mdc-theme-primary: var(--auth-input-color);
+    --mdc-theme-error: var(--status-danger-color);
+    --mdc-text-field-fill-color: transparent;
     font: var(--auth-input-font);
   }
 
-  button {
-    grid-column: 2;
-    background-color: var(--auth-button-background-color);
-    border-radius: 10px;
-    border: none;
-    margin: 5px 0;
-    padding: var(--auth-button-padding);
-    font: var(--auth-button-font);
-    color: #fff;
-    box-shadow: var(--box-shadow);
-    cursor: pointer;
+  mwc-button {
+    --mdc-theme-primary: var(--auth-button-background-color);
   }
-  .wrap a {
+
+  mwc-button.button {
+    grid-column: auto / -1;
+    margin: 5px 0;
+  }
+
+  .wrap .link {
+    text-decoration: none;
     justify-self: flex-start;
     color: var(--auth-title-color);
+  }
+
+  .wrap .link > mwc-button {
+    --mdc-theme-primary: var(--auth-title-color);
   }
 
   #locale-area {
@@ -118,9 +119,17 @@ export const AUTH_STYLE_SIGN = css`
       color: var(--opacity-light-color);
     }
     .wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
       width: 100%;
       background-size: cover;
-      padding: 70px 50px 0 50px;
+      padding: 70px 50px 50px 50px;
     }
     h3 {
       color: #fff;
@@ -128,12 +137,17 @@ export const AUTH_STYLE_SIGN = css`
     .auth-form {
       grid-template-columns: 1fr;
     }
-    .field input {
-      border-bottom: var(--auth-input-border-light);
+    .field mwc-textfield {
+      --mdc-theme-primary: #fff;
+      --mdc-text-field-ink-color: #fff;
+      --mdc-text-field-label-ink-color: var(--opacity-light-color);
+    }
+    .wrap .link {
       color: #fff;
     }
-    .wrap a {
-      color: #fff;
+
+    .wrap .link > mwc-button {
+      --mdc-theme-primary: #fff;
     }
   }
 
@@ -159,7 +173,7 @@ export const AUTH_STYLE_SIGN = css`
       grid-template-columns: 1fr 1fr 1fr 1fr;
       padding: 30px;
     }
-    button {
+    mwc-button.button {
       max-width: 150px;
       justify-self: flex-end;
       width: 100%;

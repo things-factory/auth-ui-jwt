@@ -5,84 +5,68 @@ import { AbstractSign } from '../components/abstract-sign'
 import { generatePasswordPatternRegexp } from '../utils/generate-password-pattern-regexp'
 
 export class AuthSignup extends AbstractSign {
-  static get styles() {
-    return [
-      super.styles,
-      css`
-        .field input:invalid {
-          border-color: var(--status-danger-color);
-          color: var(--status-danger-color);
-        }
-
-        .field input:invalid::placeholder {
-          color: var(--status-danger-color);
-        }
-
-        .hint {
-          display: block;
-          font-size: 11px;
-          color: var(--primary-color);
-          margin-top: 0.5rem;
-          line-height: 1;
-        }
-
-        @media (max-width: 450px) {
-          .hint {
-            color: white;
-          }
-        }
-      `
-    ]
-  }
-
   get pageName() {
     return 'sign up'
   }
 
   get formfields() {
     return html`
-      <div class="field"><input type="text" name="name" placeholder=${i18next.t('field.name')} required /></div>
-      <div class="field"><input type="email" name="email" placeholder=${i18next.t('field.email')} required /></div>
+      <input id="locale-input" type="hidden" name="locale" .value="${i18next.language}" />
+
       <div class="field">
-        <input
-          type="password"
+        <mwc-textfield name="name" type="text" label=${i18next.t('field.name')} required></mwc-textfield>
+      </div>
+      <div class="field">
+        <mwc-textfield name="email" type="email" label=${i18next.t('field.email')} required></mwc-textfield>
+      </div>
+      <div class="field">
+        <mwc-textfield
           name="password"
-          placeholder=${i18next.t('field.password')}
+          type="password"
+          label=${i18next.t('field.password')}
           .pattern="${generatePasswordPatternRegexp({
             useTightPattern: true
           }).source}"
+          helper=${i18next.t('text.password rule')}
+          helperPersistent
           required
           @input=${e => {
             var confirmPasswordEl = this.renderRoot.querySelector('#confirm-password')
             var val = e.target.value
-            confirmPasswordEl.setAttribute('pattern', val)
+            confirmPasswordEl.pattern = val
+            confirmPasswordEl.requestUpdate()
           }}
-        />
-        <span class="hint"><i18n-msg msgid="text.password rule"></i18n-msg></span>
+        ></mwc-textfield>
       </div>
       <div class="field">
-        <input
+        <mwc-textfield
           id="confirm-password"
+          name="confirm-password"
           type="password"
-          placeholder=${i18next.t('field.confirm password')}
+          label=${i18next.t('field.confirm password')}
           required
-          @invalid=${e => {
-            var target = e.target
-            target.setCustomValidity(i18next.t('text.passwords do not match'))
-          }}
-        />
+          .validationMessage=${i18next.t('text.passwords do not match')}
+        ></mwc-textfield>
       </div>
-      <input id="locale-input" type="hidden" name="locale" .value="${i18next.language}" />
-      <a href=${auth.fullpage(auth.signinPage)}><i18n-msg msgid="field.sign in"></i18n-msg></a>
-      <button class="ui button" type="submit"><i18n-msg msgid="field.sign up"></i18n-msg></button>
+      <a class="link" href=${auth.fullpage(auth.signinPage)}>
+        <mwc-button><i18n-msg msgid="field.sign in"></i18n-msg></mwc-button>
+      </a>
+      <mwc-button class="ui button" raised @click=${e => this._onSubmit(e)}>
+        <i18n-msg msgid="field.${this.pageName}"></i18n-msg>
+      </mwc-button>
     `
   }
 
   async handleSubmit(e) {
     e.preventDefault()
-    const form = e.target
+    const form = this.formEl
+    const formData = new FormData()
 
-    const formData = new FormData(form)
+    this.formElements.forEach(el => {
+      var name = el.getAttribute('name')
+      formData.append(name, el.value)
+    })
+
     let json = {}
 
     for (const [key, value] of formData.entries()) {

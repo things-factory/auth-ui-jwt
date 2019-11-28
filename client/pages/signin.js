@@ -9,9 +9,14 @@ export class AuthSignin extends AbstractSign {
 
   async handleSubmit(e) {
     e.preventDefault()
-    const form = e.target
+    const form = this.formEl
+    const formData = new FormData()
 
-    const formData = new FormData(form)
+    this.formElements.forEach(el => {
+      var name = el.getAttribute('name')
+      formData.append(name, el.value)
+    })
+
     let json = {}
 
     for (const [key, value] of formData.entries()) {
