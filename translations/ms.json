@@ -14,5 +14,7 @@
   "field.email": "alamat emel",
   "field.password": "kata laluan",
   "field.token": "token",
+  "label.language": "bahasa",
+  "label.password": "kata laluan",
   "label.resend": "resend"
 }

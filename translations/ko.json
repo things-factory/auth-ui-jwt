@@ -6,6 +6,8 @@
   "field.sign out": "로그아웃",
   "field.sign up": "사용자 등록",
   "field.token": "인증 토큰",
+  "label.language": "언어",
+  "label.password": "패스워드",
   "label.resend": "재전송",
   "text.auth profile": "사용자 프로파일",
   "text.change password": "패스워드 변경",

@@ -6,6 +6,8 @@
   "field.sign out": "sign out",
   "field.sign up": "sign up",
   "field.token": "token",
+  "label.language": "language",
+  "label.password": "password",
   "label.resend": "resend",
   "text.auth profile": "user profile",
   "text.change password": "change password",
