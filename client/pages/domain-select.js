@@ -1,9 +1,11 @@
 import '@material/mwc-button'
 import { auth } from '@things-factory/auth-base'
+import { openPopup } from '@things-factory/layout-base'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { PageView, store } from '@things-factory/shell'
 import { css, html } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
+import '../components/profile-component'
 
 export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)) {
   static get properties() {
@@ -90,6 +92,7 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
         <div id="contact-area"></div>
         <div id="button-area">
           <mwc-button label="${i18next.t('button.logout')}" @click=${e => auth.signout()}></mwc-button>
+          <mwc-button label="${i18next.t('button.profile')}" @click=${e => this.showProfilePopup()}></mwc-button>
         </div>
       </div>
     `
@@ -97,12 +100,18 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
 
   get context() {
     return {
-      fullbleed: true
+      fullbleed: false
     }
   }
 
   stateChanged(state) {
     this.domains = state.app.domains
+  }
+
+  showProfilePopup() {
+    openPopup(html`
+      <profile-component></profile-component>
+    `)
   }
 }
 

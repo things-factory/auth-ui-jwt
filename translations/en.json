@@ -13,11 +13,12 @@
   "text.change password": "change password",
   "text.confirm password": "confirm password",
   "text.current password": "current password",
+  "text.delete account warning message": "This action cannot be undone. This will permanently delete all about this account.\n\nPlease type in the email and password of this account to confirm.",
   "text.new password": "new password",
   "text.password rule": "Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.",
   "text.passwords do not match": "These passwords don't match.",
   "text.select domain": "select domain",
   "text.signed in": "signed in",
   "text.signed out": "signed out",
-  "text.your account is not activated.": "your account is not activated."
+  "text.your account is not activated": "your account is not activated."
 }
