@@ -62,6 +62,12 @@ export class AbstractSign extends localize(i18next)(PageView) {
     }
   }
 
+  pageUpdated(changes) {
+    if (this.active && 'active' in changes) {
+      this.renderRoot.querySelectorAll('mwc-textfield')[0].focus()
+    }
+  }
+
   get pageName() {}
 
   get formEl() {
