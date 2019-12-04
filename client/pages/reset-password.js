@@ -1,6 +1,4 @@
 import '@material/mwc-button'
-import { auth } from '@things-factory/auth-base'
-import { openPopup } from '@things-factory/layout-base'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { PageView, store } from '@things-factory/shell'
 import { css, html } from 'lit-element'
