@@ -21,7 +21,6 @@ export class AuthActivate extends localize(i18next)(PageView) {
         <h1><i18n-msg msgid="text.your account is not activated"></i18n-msg></h1>
         <div id="button-area">
           <mwc-button label="${i18next.t('label.resend')}" @click=${e => this.requestResend(e)}></mwc-button>
-          <mwc-button label="${i18next.t('button.logout')}" @click=${e => auth.signout()}></mwc-button>
         </div>
         <contact-us></contact-us>
       </div>

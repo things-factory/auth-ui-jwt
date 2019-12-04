@@ -1,6 +1,6 @@
 import { auth } from '@things-factory/auth-base'
 import { i18next } from '@things-factory/i18n-base'
-import { css, html } from 'lit-element'
+import { html } from 'lit-element'
 import { AbstractSign } from '../components/abstract-sign'
 import { generatePasswordPatternRegexp } from '../utils/generate-password-pattern-regexp'
 
@@ -48,12 +48,17 @@ export class AuthSignup extends AbstractSign {
           .validationMessage=${i18next.t('text.passwords do not match')}
         ></mwc-textfield>
       </div>
-      <a class="link" href=${auth.fullpage(auth.signinPage)}>
-        <mwc-button><i18n-msg msgid="field.sign in"></i18n-msg></mwc-button>
-      </a>
       <mwc-button class="ui button" raised @click=${e => this._onSubmit(e)}>
         <i18n-msg msgid="field.${this.pageName}"></i18n-msg>
       </mwc-button>
+    `
+  }
+
+  get links() {
+    return html`
+      <a class="link" href=${auth.fullpage(auth.signinPage)}>
+        <mwc-button><i18n-msg msgid="field.sign in"></i18n-msg></mwc-button>
+      </a>
     `
   }
 

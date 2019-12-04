@@ -92,7 +92,6 @@ export const AUTH_STYLE_SIGN = css`
   #locale-area {
     display: flex;
     grid-column: 1 / -1;
-    margin-top: 40px;
   }
 
   #locale-area > label {
@@ -136,6 +135,7 @@ export const AUTH_STYLE_SIGN = css`
     }
     .auth-form {
       grid-template-columns: 1fr;
+      grid-gap: 10px;
     }
     .field mwc-textfield {
       --mdc-theme-primary: #fff;
@@ -177,6 +177,14 @@ export const AUTH_STYLE_SIGN = css`
       max-width: 150px;
       justify-self: flex-end;
       width: 100%;
+    }
+
+    .wrap .link {
+      grid-column: span 2;
+    }
+
+    .wrap .link:nth-child(2n) {
+      justify-self: flex-end;
     }
   }
 `

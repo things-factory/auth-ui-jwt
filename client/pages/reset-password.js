@@ -7,13 +7,7 @@ import { css, html } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import '../components/profile-component'
 
-export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)) {
-  static get properties() {
-    return {
-      domains: Array
-    }
-  }
-
+export class ResetPassword extends localize(i18next)(connect(store)(PageView)) {
   static get styles() {
     return [
       css`
@@ -63,39 +57,36 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
     ]
   }
 
+  static get properties() {
+    return {
+      token: String
+    }
+  }
+
   render() {
     return html`
       <div class="wrap">
-        <div id="domain-select-area">
-          ${this.domains && this.domains.length
-            ? html`
-                <label for="domain-select"><i18n-msg msgid="text.select domain"></i18n-msg></label>
-                <select
-                  id="domain-select"
-                  @change=${e => {
-                    var domain = e.target.value
-                    if (domain) location.pathname = `/domain/${domain}/`
-                  }}
-                >
-                  <option value=""></option>
-                  ${(this.domains || []).map(
-                    domain => html`
-                      <option value="${domain.subdomain}">${domain.name}</option>
-                    `
-                  )}
-                </select>
-              `
-            : html`
-                <span><i18n-msg msgid="text.no domain available"></i18n-msg></span>
-              `}
-        </div>
-        <div id="contact-area"></div>
-        <div id="button-area">
-          <mwc-button label="${i18next.t('button.logout')}" @click=${e => auth.signout()}></mwc-button>
-          <mwc-button label="${i18next.t('button.profile')}" @click=${e => this.showProfilePopup()}></mwc-button>
-        </div>
+        <form action="/reset-password" method="POST">
+          <label for="password"><i18n-msg msgid="label.password"></i18n-msg></label>
+          <input id="password" name="password" type="password" placeholder="${i18next.t('text.password')}" required />
+          <label for="confirm-password"><i18n-msg msgid="label.confirm password"></i18n-msg></label>
+          <input
+            id="confirm-password"
+            name="confirm-password"
+            type="password"
+            placeholder="${i18next.t('text.confirm password')}"
+            required
+          />
+          <input name="token" type="hidden" .value=${this.token} required />
+          <button type="submit"><i18n-msg msgid="label.submit"></i18n-msg></button>
+        </form>
       </div>
     `
+  }
+
+  firstUpdated() {
+    var searchParams = new URLSearchParams(window.location.search)
+    this.token = searchParams.get('token')
   }
 
   get context() {
@@ -103,16 +94,6 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
       fullbleed: true
     }
   }
-
-  stateChanged(state) {
-    this.domains = state.app.domains
-  }
-
-  showProfilePopup() {
-    openPopup(html`
-      <profile-component></profile-component>
-    `)
-  }
 }
 
-customElements.define('auth-domain-select', AuthDomainSelect)
+customElements.define('reset-password', ResetPassword)

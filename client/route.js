@@ -39,5 +39,20 @@ export default function route(page) {
         './pages/activate.js'
       )
       return page
+
+    case 'forgot-password':
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "forgot-password" */
+        './pages/forgot-password.js'
+      )
+      return page
+    case 'reset-password':
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "reset-password" */
+        './pages/reset-password.js'
+      )
+      return page
   }
 }

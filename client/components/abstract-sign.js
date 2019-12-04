@@ -35,6 +35,7 @@ export class AbstractSign extends localize(i18next)(PageView) {
           >
             ${this.formfields}
           </form>
+          ${this.links}
           <div id="locale-area">
             <label for="locale-selector"><mwc-icon>language</mwc-icon></label>
             <i18n-selector
@@ -89,12 +90,20 @@ export class AbstractSign extends localize(i18next)(PageView) {
         <mwc-textfield name="password" type="password" label=${i18next.t('field.password')} required></mwc-textfield>
       </div>
 
-      <a class="link" href=${auth.fullpage(auth.signupPage)}>
-        <mwc-button><i18n-msg msgid="field.sign up"></i18n-msg></mwc-button
-      ></a>
       <mwc-button class="ui button" type="submit" raised @click=${e => this._onSubmit(e)}>
         <i18n-msg msgid="field.${this.pageName}"> </i18n-msg>
       </mwc-button>
+    `
+  }
+
+  get links() {
+    return html`
+      <a class="link" href=${auth.fullpage(auth.signupPage)}>
+        <mwc-button><i18n-msg msgid="field.sign up"></i18n-msg></mwc-button>
+      </a>
+      <a class="link" href=${auth.fullpage(auth.forgotPasswordPage)}>
+        <mwc-button><i18n-msg msgid="field.forgot-password"></i18n-msg></mwc-button>
+      </a>
     `
   }
 

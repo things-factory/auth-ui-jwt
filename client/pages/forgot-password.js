@@ -1,19 +1,11 @@
 import '@material/mwc-button'
-import { auth } from '@things-factory/auth-base'
-import { openPopup } from '@things-factory/layout-base'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { PageView, store } from '@things-factory/shell'
 import { css, html } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import '../components/profile-component'
 
-export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)) {
-  static get properties() {
-    return {
-      domains: Array
-    }
-  }
-
+export class ForgotPassword extends localize(i18next)(connect(store)(PageView)) {
   static get styles() {
     return [
       css`
@@ -66,34 +58,11 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
   render() {
     return html`
       <div class="wrap">
-        <div id="domain-select-area">
-          ${this.domains && this.domains.length
-            ? html`
-                <label for="domain-select"><i18n-msg msgid="text.select domain"></i18n-msg></label>
-                <select
-                  id="domain-select"
-                  @change=${e => {
-                    var domain = e.target.value
-                    if (domain) location.pathname = `/domain/${domain}/`
-                  }}
-                >
-                  <option value=""></option>
-                  ${(this.domains || []).map(
-                    domain => html`
-                      <option value="${domain.subdomain}">${domain.name}</option>
-                    `
-                  )}
-                </select>
-              `
-            : html`
-                <span><i18n-msg msgid="text.no domain available"></i18n-msg></span>
-              `}
-        </div>
-        <div id="contact-area"></div>
-        <div id="button-area">
-          <mwc-button label="${i18next.t('button.logout')}" @click=${e => auth.signout()}></mwc-button>
-          <mwc-button label="${i18next.t('button.profile')}" @click=${e => this.showProfilePopup()}></mwc-button>
-        </div>
+        <form action="/forgot-password" method="POST">
+          <label for="email"><i18n-msg msgid="label.email"></i18n-msg></label>
+          <input id="email" name="email" type="email" placeholder="${i18next.t('text.your email address')}" required />
+          <button type="submit"><i18n-msg msgid="label.submit"></i18n-msg></button>
+        </form>
       </div>
     `
   }
@@ -107,12 +76,6 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
   stateChanged(state) {
     this.domains = state.app.domains
   }
-
-  showProfilePopup() {
-    openPopup(html`
-      <profile-component></profile-component>
-    `)
-  }
 }
 
-customElements.define('auth-domain-select', AuthDomainSelect)
+customElements.define('forgot-password', ForgotPassword)
