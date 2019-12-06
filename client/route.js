@@ -54,5 +54,12 @@ export default function route(page) {
         './pages/reset-password.js'
       )
       return page
+    case 'congratulations':
+      import(
+        /* webpackPrefetch: true */
+        /* webpackChunkName: "congratulations" */
+        './pages/congratulations.js'
+      )
+      return page
   }
 }

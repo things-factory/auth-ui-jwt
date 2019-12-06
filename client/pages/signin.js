@@ -23,23 +23,6 @@ export class AuthSignin extends AbstractSign {
       json[key] = value
     }
 
-    var profileHandler = ({ credential, domains }) => {
-      var domain = credential.domain
-      var routePath
-
-      if (!domain) {
-        if (domains.length == 1) routePath = `/domain/${domains[0].subdomain}/`
-        else routePath = '/domain-select'
-      } else {
-        routePath = `/domain/${credential.domain.subdomain}`
-      }
-
-      auth.route(routePath)
-      auth.off('profile', profileHandler)
-    }
-
-    auth.on('profile', profileHandler)
-
     await auth.signin(json)
 
     form.reset()

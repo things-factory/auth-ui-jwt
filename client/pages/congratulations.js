@@ -1,19 +1,12 @@
 import '@material/mwc-button'
 import { auth } from '@things-factory/auth-base'
 import { i18next, localize } from '@things-factory/i18n-base'
-import { openPopup } from '@things-factory/layout-base'
 import { PageView, store } from '@things-factory/shell'
 import { css, html } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 import '../components/profile-component'
 
-export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)) {
-  static get properties() {
-    return {
-      domains: Array
-    }
-  }
-
+export class AuthCongratulations extends localize(i18next)(connect(store)(PageView)) {
   static get styles() {
     return [
       css`
@@ -66,33 +59,11 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
   render() {
     return html`
       <div class="wrap">
-        <div id="domain-select-area">
-          ${this.domains && this.domains.length
-            ? html`
-                <label for="domain-select"><i18n-msg msgid="text.select domain"></i18n-msg></label>
-                <select
-                  id="domain-select"
-                  @change=${e => {
-                    var domain = e.target.value
-                    if (domain) location.pathname = `/domain/${domain}/`
-                  }}
-                >
-                  <option value=""></option>
-                  ${(this.domains || []).map(
-                    domain => html`
-                      <option value="${domain.subdomain}">${domain.name}</option>
-                    `
-                  )}
-                </select>
-              `
-            : html`
-                <span><i18n-msg msgid="text.no domain available"></i18n-msg></span>
-              `}
+        <div id="message-area">
+          <i18n-msg msgid="text.congratulations"></i18n-msg>
         </div>
-        <div id="contact-area"></div>
         <div id="button-area">
-          <mwc-button label="${i18next.t('button.logout')}" @click=${e => auth.signout()}></mwc-button>
-          <mwc-button label="${i18next.t('button.profile')}" @click=${e => this.showProfilePopup()}></mwc-button>
+          <mwc-button label="${i18next.t('button.go to home')}" @click=${e => auth.onAuthRequired()}></mwc-button>
         </div>
       </div>
     `
@@ -103,26 +74,6 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
       fullbleed: true
     }
   }
-
-  updated(changed) {
-    if (changed.has('active')) {
-      this.onActiveChanged()
-    }
-  }
-
-  stateChanged(state) {
-    this.domains = state.app.domains
-  }
-
-  showProfilePopup() {
-    openPopup(html`
-      <profile-component></profile-component>
-    `)
-  }
-
-  onActiveChanged() {
-    if (this.active) auth.profile()
-  }
 }
 
-customElements.define('auth-domain-select', AuthDomainSelect)
+customElements.define('auth-congratulations', AuthCongratulations)

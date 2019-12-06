@@ -31,6 +31,10 @@ export default {
     {
       tagname: 'reset-password',
       page: 'reset-password'
+    },
+    {
+      tagname: 'auth-congratulations',
+      page: 'congratulations'
     }
   ],
   bootstrap
