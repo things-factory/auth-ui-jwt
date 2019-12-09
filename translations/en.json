@@ -1,6 +1,7 @@
 {
   "field.confirm password": "confirm password",
   "field.email": "email address",
+  "field.forgot-password": "forgot password",
   "field.password": "password",
   "field.sign in": "sign in",
   "field.sign out": "sign out",

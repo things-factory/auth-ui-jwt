@@ -13,6 +13,7 @@
   "field.sign out": "登出",
   "field.email": "电子邮件地址",
   "field.password": "密码",
+  "field.forgot-password": "forgot password",
   "field.token": "符记",
   "label.language": "语言",
   "label.password": "密码",
