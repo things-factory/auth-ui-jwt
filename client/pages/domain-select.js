@@ -104,6 +104,12 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
     }
   }
 
+  // TODO should be changed to 'pageUpdated'
+  // pageUpdated(changed) {
+  //   if(this.active) {
+  //     auth.profile()
+  //   }
+  // }
   updated(changed) {
     if (changed.has('active')) {
       this.onActiveChanged()
@@ -120,6 +126,7 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)
     `)
   }
 
+  // TODO can be removed after updated is changed(..) to pageUpdated(..)
   onActiveChanged() {
     if (this.active) auth.profile()
   }
