@@ -1,4 +1,8 @@
 {
+  "label.delete account": "delete account",
+  "label.language": "语言",
+  "label.password": "密码",
+  "label.resend": "resend",
   "text.signed in": "已经登入",
   "text.signed out": "已经登出",
   "text.change password": "换密码",
@@ -14,8 +18,5 @@
   "field.email": "电子邮件地址",
   "field.password": "密码",
   "field.forgot-password": "forgot password",
-  "field.token": "符记",
-  "label.language": "语言",
-  "label.password": "密码",
-  "label.resend": "resend"
+  "field.token": "符记"
 }

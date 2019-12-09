@@ -1,4 +1,15 @@
 {
+  "field.sign in": "log masuk",
+  "field.sign up": "daftar akaun",
+  "field.sign out": "log keluar",
+  "field.email": "alamat emel",
+  "field.forgot-password": "forgot password",
+  "field.password": "kata laluan",
+  "field.token": "token",
+  "label.delete account": "delete account",
+  "label.language": "bahasa",
+  "label.password": "kata laluan",
+  "label.resend": "resend",
   "text.signed in": "telah log masuk",
   "text.signed out": "telah log keluar",
   "text.change password": "tukar kata laluan",
@@ -7,15 +18,5 @@
   "text.confirm password": "sahkan kata laluan",
   "text.auth profile": "profil",
   "text.select domain": "select domain",
-  "text.your account is not activated.": "your account is not activated.",
-  "field.sign in": "log masuk",
-  "field.sign up": "daftar akaun",
-  "field.sign out": "log keluar",
-  "field.email": "alamat emel",
-  "field.forgot-password": "forgot password",
-  "field.password": "kata laluan",
-  "field.token": "token",
-  "label.language": "bahasa",
-  "label.password": "kata laluan",
-  "label.resend": "resend"
+  "text.your account is not activated.": "your account is not activated."
 }
