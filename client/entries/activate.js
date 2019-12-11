@@ -106,7 +106,7 @@ export class AuthActivate extends localize(i18next)(LitElement) {
     snackbar.message = message
     snackbar.active = true
 
-    if(timer > -1)
+    if (timer > -1)
       setTimeout(() => {
         snackbar.active = false
       }, timer)
