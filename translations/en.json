@@ -22,5 +22,6 @@
   "text.select domain": "select domain",
   "text.signed in": "signed in",
   "text.signed out": "signed out",
-  "text.your account is not activated": "your account is not activated."
+  "text.your account is not activated": "your account is not activated.",
+  "text.no domain available": "no domain available"
 }
