@@ -1,7 +1,7 @@
 {
   "field.confirm password": "패스워드 확인",
   "field.email": "이메일",
-  "field.forgot-password": "암호가 기억할 수 없습니까?",
+  "field.forgot-password": "암호가 기억나지 않나요?",
   "field.password": "패스워드",
   "field.sign in": "로그인",
   "field.sign out": "로그아웃",
