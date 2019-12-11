@@ -4,6 +4,7 @@ import '@material/mwc-textfield'
 import { auth } from '@things-factory/auth-base'
 import { i18next, localize } from '@things-factory/i18n-base'
 import '@things-factory/i18n-ui/client/components/i18n-selector'
+import '@things-factory/layout-ui/client/layouts/snack-bar'
 import { css, html, LitElement } from 'lit-element'
 import { AUTH_STYLE_SIGN } from '../auth-style-sign'
 
@@ -90,11 +91,13 @@ export class AbstractSign extends localize(i18next)(LitElement) {
           </div>
         </div>
       </div>
-      <div id="message" ?hidden=${this.message ? false : true}><i18n-msg msgid="${this.message}"></i18n-msg></div>
+      <snack-bar id="snackbar"></snack-bar>
     `
   }
 
   firstUpdated() {
+    this.renderRoot.querySelector('mwc-textfield').focus() // not working...
+
     this.formEl.reset = () => {
       this.formElements.filter(el => !(el.hidden || el.type == 'hidden')).forEach(el => (el.value = ''))
     }
@@ -105,11 +108,17 @@ export class AbstractSign extends localize(i18next)(LitElement) {
       this.message = this.data.message
       this.redirectTo = this.data.redirectTo
     }
-  }
 
-  pageUpdated(changes) {
-    if (this.active && 'active' in changes) {
-      this.renderRoot.querySelectorAll('mwc-textfield')[0].focus()
+    if (changed.has('message')) {
+      if (!this.message) {
+        this.hideSnackbar()
+      } else {
+        this.showSnackbar({
+          level: 'error',
+          message: this.message,
+          timer: -1
+        })
+      }
     }
   }
 
@@ -172,12 +181,6 @@ export class AbstractSign extends localize(i18next)(LitElement) {
     `
   }
 
-  get context() {
-    return {
-      fullbleed: true
-    }
-  }
-
   async _onSubmit(e) {
     if (this.checkValidity()) {
       this.formEl.submit()
@@ -189,6 +192,23 @@ export class AbstractSign extends localize(i18next)(LitElement) {
   }
 
   async handleSubmit(e) {}
+
+  showSnackbar({ level, message, timer = 3000 }) {
+    const snackbar = this.renderRoot.querySelector('#snackbar')
+    snackbar.level = level
+    snackbar.message = message
+    snackbar.active = true
+
+    if (timer > -1)
+      setTimeout(() => {
+        this.hideSnackbar()
+      }, timer)
+  }
+
+  hideSnackbar() {
+    const snackbar = this.renderRoot.querySelector('#snackbar')
+    snackbar.active = false
+  }
 
   get applicationMeta() {
     if (!this._applicationMeta) {
