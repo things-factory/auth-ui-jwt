@@ -1,5 +1,6 @@
 import '@material/mwc-button'
 import { i18next, localize } from '@things-factory/i18n-base'
+import '@things-factory/layout-ui/client/layouts/snack-bar'
 import { css, html, LitElement } from 'lit-element'
 export class AuthActivate extends localize(i18next)(LitElement) {
   static get styles() {
@@ -47,6 +48,7 @@ export class AuthActivate extends localize(i18next)(LitElement) {
         </div>
         <contact-us></contact-us>
       </div>
+      <snack-bar id="snackbar"></snack-bar>
     `
   }
 
@@ -58,12 +60,6 @@ export class AuthActivate extends localize(i18next)(LitElement) {
   updated(changed) {
     if (changed.has('data')) {
       this.email = this.data.email
-    }
-  }
-
-  get context() {
-    return {
-      fullbleed: true
     }
   }
 
@@ -92,20 +88,28 @@ export class AuthActivate extends localize(i18next)(LitElement) {
         signal
       })
       if (response && response.ok) {
-        document.dispatchEvent(
-          new CustomEvent('notify', {
-            detail: {
-              level: 'info',
-              message: i18next.t('text.verification email resent')
-            }
-          })
-        )
+        this.showSnackbar({
+          level: 'info',
+          message: i18next.t('text.verification email resent')
+        })
       }
     } catch (e) {
     } finally {
       button.disabled = false
       clearTimeout(timer)
     }
+  }
+
+  showSnackbar({ level, message, timer = 3000 }) {
+    const snackbar = this.renderRoot.querySelector('#snackbar')
+    snackbar.level = level
+    snackbar.message = message
+    snackbar.active = true
+
+    if(timer > -1)
+      setTimeout(() => {
+        snackbar.active = false
+      }, timer)
   }
 }
 
