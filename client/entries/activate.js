@@ -1,8 +1,7 @@
 import '@material/mwc-button'
 import { i18next, localize } from '@things-factory/i18n-base'
-import { PageView } from '@things-factory/shell'
-import { css, html } from 'lit-element'
-export class AuthActivate extends localize(i18next)(PageView) {
+import { css, html, LitElement } from 'lit-element'
+export class AuthActivate extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       css`
@@ -16,6 +15,7 @@ export class AuthActivate extends localize(i18next)(PageView) {
 
   static get properties() {
     return {
+      data: Object,
       email: String
     }
   }
@@ -38,6 +38,12 @@ export class AuthActivate extends localize(i18next)(PageView) {
         </form>
         <div id="button-area">
           <mwc-button label="${i18next.t('label.resend')}" @click=${e => this.requestResend(e)}></mwc-button>
+          <mwc-button
+            label="${i18next.t('button.go to home')}"
+            @click=${e => {
+              window.location.replace('/signin')
+            }}
+          ></mwc-button>
         </div>
         <contact-us></contact-us>
       </div>
@@ -47,6 +53,12 @@ export class AuthActivate extends localize(i18next)(PageView) {
   firstUpdated() {
     var searchParams = new URLSearchParams(window.location.search)
     this.email = searchParams.get('email')
+  }
+
+  updated(changed) {
+    if (changed.has('data')) {
+      this.email = this.data.email
+    }
   }
 
   get context() {

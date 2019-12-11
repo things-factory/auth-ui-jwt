@@ -9,15 +9,40 @@ export class AuthSignup extends AbstractSign {
     return 'sign up'
   }
 
+  get actionUrl() {
+    return '/signup'
+  }
+
   get formfields() {
     return html`
       <input id="locale-input" type="hidden" name="locale" .value="${i18next.language}" />
+      <input id="name" type="hidden" name="name" />
+      <input id="email" type="hidden" name="email" />
+      <input id="password" type="hidden" name="password" />
 
       <div class="field">
-        <mwc-textfield name="name" type="text" label=${i18next.t('field.name')} required></mwc-textfield>
+        <mwc-textfield
+          name="name"
+          type="text"
+          label=${i18next.t('field.name')}
+          required
+          @input=${e => {
+            var nameInput = this.renderRoot.querySelector('#name')
+            nameInput.value = e.target.value
+          }}
+        ></mwc-textfield>
       </div>
       <div class="field">
-        <mwc-textfield name="email" type="email" label=${i18next.t('field.email')} required></mwc-textfield>
+        <mwc-textfield
+          name="email"
+          type="email"
+          label=${i18next.t('field.email')}
+          required
+          @input=${e => {
+            var emailInput = this.renderRoot.querySelector('#email')
+            emailInput.value = e.target.value
+          }}
+        ></mwc-textfield>
       </div>
       <div class="field">
         <mwc-textfield
@@ -32,7 +57,9 @@ export class AuthSignup extends AbstractSign {
           required
           @input=${e => {
             var confirmPasswordEl = this.renderRoot.querySelector('#confirm-password')
+            var password = this.renderRoot.querySelector('#password')
             var val = e.target.value
+            password.value = val
             confirmPasswordEl.pattern = val
             confirmPasswordEl.requestUpdate()
           }}

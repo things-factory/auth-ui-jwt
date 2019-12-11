@@ -1,3 +1,6 @@
+import '@material/mwc-button'
+import '@material/mwc-icon'
+import '@material/mwc-textfield'
 import { auth } from '@things-factory/auth-base'
 import '@things-factory/i18n-ui/client/components/i18n-selector'
 import { AbstractSign } from '../components/abstract-sign'
@@ -5,6 +8,10 @@ import { AbstractSign } from '../components/abstract-sign'
 export class AuthSignin extends AbstractSign {
   get pageName() {
     return 'sign in'
+  }
+
+  get actionUrl() {
+    return '/signin'
   }
 
   async handleSubmit(e) {

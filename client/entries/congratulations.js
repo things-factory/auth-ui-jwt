@@ -1,12 +1,9 @@
 import '@material/mwc-button'
-import { auth } from '@things-factory/auth-base'
 import { i18next, localize } from '@things-factory/i18n-base'
-import { PageView, store } from '@things-factory/shell'
-import { css, html } from 'lit-element'
-import { connect } from 'pwa-helpers/connect-mixin.js'
+import { css, html, LitElement } from 'lit-element'
 import '../components/profile-component'
 
-export class AuthCongratulations extends localize(i18next)(connect(store)(PageView)) {
+export class AuthCongratulations extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       css`
@@ -56,23 +53,35 @@ export class AuthCongratulations extends localize(i18next)(connect(store)(PageVi
     ]
   }
 
+  static get properties() {
+    return {
+      data: Object,
+      message: String
+    }
+  }
+
+  updated(changed) {
+    if (changed.has('data')) {
+      this.message = this.data.message
+    }
+  }
+
   render() {
     return html`
       <div class="wrap">
         <div id="message-area">
-          <i18n-msg msgid="text.congratulations"></i18n-msg>
+          <i18n-msg msgid="text.${this.message}"></i18n-msg>
         </div>
         <div id="button-area">
-          <mwc-button label="${i18next.t('button.go to home')}" @click=${e => auth.onAuthRequired()}></mwc-button>
+          <mwc-button
+            label="${i18next.t('button.go to home')}"
+            @click=${e => {
+              window.location.replace('/signin')
+            }}
+          ></mwc-button>
         </div>
       </div>
     `
-  }
-
-  get context() {
-    return {
-      fullbleed: true
-    }
   }
 }
 

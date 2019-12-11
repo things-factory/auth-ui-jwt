@@ -89,6 +89,16 @@ export const AUTH_STYLE_SIGN = css`
     --mdc-theme-primary: var(--auth-title-color);
   }
 
+  #message {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 50px;
+    background-color: black;
+    text-align: center;
+    color: red;
+  }
+
   #locale-area {
     display: flex;
     grid-column: 1 / -1;

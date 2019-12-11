@@ -1,13 +1,9 @@
 import '@material/mwc-button'
-import { auth } from '@things-factory/auth-base'
 import { i18next, localize } from '@things-factory/i18n-base'
-import { PageView, store } from '@things-factory/shell'
-import { css, html } from 'lit-element'
-import { connect } from 'pwa-helpers/connect-mixin.js'
+import '@things-factory/layout-ui/client/layouts/snack-bar'
+import { css, html, LitElement } from 'lit-element'
 import '../components/profile-component'
-import { generatePasswordPatternRegexp } from '../utils/generate-password-pattern-regexp'
-
-export class ResetPassword extends localize(i18next)(connect(store)(PageView)) {
+export class ForgotPassword extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       css`
@@ -57,63 +53,17 @@ export class ResetPassword extends localize(i18next)(connect(store)(PageView)) {
     ]
   }
 
-  static get properties() {
-    return {
-      token: String
-    }
-  }
-
   render() {
     return html`
       <div class="wrap">
-        <form
-          action="/reset-password"
-          method="POST"
-          @submit=${e => {
-            this._handleSubmit(e)
-          }}
-        >
-          <label for="password"><i18n-msg msgid="label.password"></i18n-msg></label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="${i18next.t('text.password')}"
-            .pattern="${generatePasswordPatternRegexp({
-              useTightPattern: true
-            }).source}"
-            @input=${e => {
-              var val = e.target.value
-              var confirmPass = this.renderRoot.querySelector('#confirm-password')
-              confirmPass.setAttribute('pattern', val)
-            }}
-            required
-          />
-          <span class="hint"><i18n-msg msgid="text.password rule"></i18n-msg></span>
-          <label for="confirm-password"><i18n-msg msgid="label.confirm password"></i18n-msg></label>
-          <input
-            id="confirm-password"
-            name="confirm-password"
-            type="password"
-            placeholder="${i18next.t('text.confirm password')}"
-            required
-          />
-          <input name="token" type="hidden" .value=${this.token} required />
-          <button id="submit-button" type="submit"><i18n-msg msgid="label.change password"></i18n-msg></button>
+        <form action="/forgot-password" method="POST" @submit=${e => this._handleSubmit(e)}>
+          <label for="email"><i18n-msg msgid="label.email"></i18n-msg></label>
+          <input id="email" name="email" type="email" placeholder="${i18next.t('text.your email address')}" required />
+          <button id="submit-button" type="submit"><i18n-msg msgid="label.submit"></i18n-msg></button>
         </form>
       </div>
+      <snack-bar id="snackbar"></snack-bar>
     `
-  }
-
-  firstUpdated() {
-    var searchParams = new URLSearchParams(window.location.search)
-    this.token = searchParams.get('token')
-  }
-
-  get context() {
-    return {
-      fullbleed: true
-    }
   }
 
   async _handleSubmit(e) {
@@ -134,7 +84,7 @@ export class ResetPassword extends localize(i18next)(connect(store)(PageView)) {
         throw new Error('timeout')
       }, 30 * 1000)
 
-      var response = await fetch('/reset-password', {
+      var response = await fetch('/forgot-password', {
         credentials: 'include',
         method: 'POST',
         headers: {
@@ -144,16 +94,10 @@ export class ResetPassword extends localize(i18next)(connect(store)(PageView)) {
         signal
       })
       if (response && response.ok) {
-        document.dispatchEvent(
-          new CustomEvent('notify', {
-            detail: {
-              level: 'info',
-              message: i18next.t('text.password reset succeed')
-            }
-          })
-        )
-
-        auth.onAuthRequired()
+        this.showSnackbar({
+          level: 'info',
+          message: i18next.t('text.password reset email sent')
+        })
       }
     } catch (e) {
     } finally {
@@ -161,6 +105,16 @@ export class ResetPassword extends localize(i18next)(connect(store)(PageView)) {
       clearTimeout(timer)
     }
   }
+
+  showSnackbar({ level, message, timer = 3000 }) {
+    const snackbar = this.renderRoot.querySelector('#snackbar')
+    snackbar.level = level
+    snackbar.message = message
+    snackbar.active = true
+    setTimeout(() => {
+      snackbar.active = false
+    }, timer)
+  }
 }
 
-customElements.define('reset-password', ResetPassword)
+customElements.define('forgot-password', ForgotPassword)

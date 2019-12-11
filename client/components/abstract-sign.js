@@ -4,13 +4,48 @@ import '@material/mwc-textfield'
 import { auth } from '@things-factory/auth-base'
 import { i18next, localize } from '@things-factory/i18n-base'
 import '@things-factory/i18n-ui/client/components/i18n-selector'
-import { PageView } from '@things-factory/shell'
-import { html } from 'lit-element'
+import { css, html, LitElement } from 'lit-element'
 import { AUTH_STYLE_SIGN } from '../auth-style-sign'
 
-export class AbstractSign extends localize(i18next)(PageView) {
+export class AbstractSign extends localize(i18next)(LitElement) {
   static get styles() {
-    return [AUTH_STYLE_SIGN]
+    return [
+      css`
+        :host {
+          overflow: hidden;
+
+          display: flex;
+          flex-direction: row;
+
+          width: 100vw;
+          height: 100vh;
+        }
+
+        [hidden] {
+          display: none;
+        }
+        /* Wide layout */
+        @media (min-width: 460px) {
+        }
+
+        @media print {
+          :host {
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+          }
+        }
+      `,
+      AUTH_STYLE_SIGN
+    ]
+  }
+
+  static get properties() {
+    return {
+      data: Object,
+      message: String,
+      redirectTo: String
+    }
   }
 
   render() {
@@ -28,7 +63,8 @@ export class AbstractSign extends localize(i18next)(PageView) {
 
           <form
             id="form"
-            action="#"
+            action="${this.actionUrl}"
+            method="POST"
             @keypress=${e => {
               if (e.key == 'Enter') this._onSubmit(e)
             }}
@@ -54,12 +90,20 @@ export class AbstractSign extends localize(i18next)(PageView) {
           </div>
         </div>
       </div>
+      <div id="message" ?hidden=${this.message ? false : true}><i18n-msg msgid="${this.message}"></i18n-msg></div>
     `
   }
 
   firstUpdated() {
     this.formEl.reset = () => {
       this.formElements.filter(el => !(el.hidden || el.type == 'hidden')).forEach(el => (el.value = ''))
+    }
+  }
+
+  updated(changed) {
+    if (changed.has('data') && this.data) {
+      this.message = this.data.message
+      this.redirectTo = this.data.redirectTo
     }
   }
 
@@ -82,12 +126,33 @@ export class AbstractSign extends localize(i18next)(PageView) {
   get formfields() {
     return html`
       <input id="locale-input" type="hidden" name="locale" .value="${i18next.language}" />
+      <input id="email" type="hidden" name="email" />
+      <input id="password" type="hidden" name="password" />
+      <input id="redirect_to" type="hidden" name="redirect_to" value="${this.redirectTo || ''}" />
 
       <div class="field">
-        <mwc-textfield name="email" type="email" label=${i18next.t('field.email')} required></mwc-textfield>
+        <mwc-textfield
+          name="email"
+          type="email"
+          label=${i18next.t('field.email')}
+          required
+          @input=${e => {
+            var emailInput = this.renderRoot.querySelector('#email')
+            emailInput.value = e.target.value
+          }}
+        ></mwc-textfield>
       </div>
       <div class="field">
-        <mwc-textfield name="password" type="password" label=${i18next.t('field.password')} required></mwc-textfield>
+        <mwc-textfield
+          name="password"
+          type="password"
+          label=${i18next.t('field.password')}
+          required
+          @input=${e => {
+            var passwordInput = this.renderRoot.querySelector('#password')
+            passwordInput.value = e.target.value
+          }}
+        ></mwc-textfield>
       </div>
 
       <mwc-button class="ui button" type="submit" raised @click=${e => this._onSubmit(e)}>
@@ -114,7 +179,9 @@ export class AbstractSign extends localize(i18next)(PageView) {
   }
 
   async _onSubmit(e) {
-    if (this.checkValidity()) this.handleSubmit(e)
+    if (this.checkValidity()) {
+      this.formEl.submit()
+    }
   }
 
   checkValidity() {
