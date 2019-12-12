@@ -22,5 +22,8 @@
   "text.select domain": "도메인 선택",
   "text.signed in": "로그인",
   "text.signed out": "로그아웃",
-  "text.your account is not activated": "계정이 활성화되지 않았습니다."
+  "text.your account is not activated": "계정이 활성화되지 않았습니다.",
+  "text.password-not-matched": "패스워드가 일치하지 않습니다. 5번 실패하면 계정이 잠깁니다. (실패: {failCount})",
+  "text.user-locked": "계정이 잠겼습니다. 이메일을 통해 재활성화하세요.",
+  "text.user duplicated.": "같은 이메일로 가입된 계정이 존재합니다."
 }

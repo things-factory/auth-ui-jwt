@@ -25,6 +25,11 @@ export class AbstractSign extends localize(i18next)(LitElement) {
         [hidden] {
           display: none;
         }
+
+        #snackbar {
+          width: 100%;
+        }
+
         /* Wide layout */
         @media (min-width: 460px) {
         }
@@ -45,6 +50,7 @@ export class AbstractSign extends localize(i18next)(LitElement) {
     return {
       data: Object,
       message: String,
+      detail: Object,
       redirectTo: String
     }
   }
@@ -91,7 +97,9 @@ export class AbstractSign extends localize(i18next)(LitElement) {
           </div>
         </div>
       </div>
-      <snack-bar id="snackbar"></snack-bar>
+      <snack-bar id="snackbar" level="error" .message="${i18next.t(`text.${this.message}`, {
+        ...this.detail
+      })}"></snack-bar>
     `
   }
 
@@ -106,6 +114,7 @@ export class AbstractSign extends localize(i18next)(LitElement) {
   updated(changed) {
     if (changed.has('data') && this.data) {
       this.message = this.data.message
+      this.detail = this.data.detail
       this.redirectTo = this.data.redirectTo
     }
 
@@ -114,8 +123,6 @@ export class AbstractSign extends localize(i18next)(LitElement) {
         this.hideSnackbar()
       } else {
         this.showSnackbar({
-          level: 'error',
-          message: this.message,
           timer: -1
         })
       }
@@ -193,10 +200,8 @@ export class AbstractSign extends localize(i18next)(LitElement) {
 
   async handleSubmit(e) {}
 
-  showSnackbar({ level, message, timer = 3000 }) {
+  showSnackbar({ timer = 3000 }) {
     const snackbar = this.renderRoot.querySelector('#snackbar')
-    snackbar.level = level
-    snackbar.message = message
     snackbar.active = true
 
     if (timer > -1)
