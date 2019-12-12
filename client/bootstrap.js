@@ -32,8 +32,6 @@ export default function bootstrap() {
         }
       })
     )
-
-    unsubscribe()
   }
 
   auth.on('signin', () => {

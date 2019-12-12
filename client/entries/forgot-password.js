@@ -1,76 +1,55 @@
 import '@material/mwc-button'
-import { i18next, localize } from '@things-factory/i18n-base'
+import { auth } from '@things-factory/auth-base'
+import { i18next } from '@things-factory/i18n-base'
 import '@things-factory/layout-ui/client/layouts/snack-bar'
-import { css, html, LitElement } from 'lit-element'
+import { html } from 'lit-element'
+import { AbstractAuthPage } from '../components/abstract-auth-page'
 import '../components/profile-component'
-export class ForgotPassword extends localize(i18next)(LitElement) {
-  static get styles() {
-    return [
-      css`
-        :host {
-          display: block;
-          background-color: var(--main-section-background-color);
-        }
-        .wrap {
-          max-width: 550px;
-          margin: 15px auto;
-          text-align: center;
-        }
-        :host *:focus {
-          outline: none;
-        }
-        .user {
-          background: url(/assets/images/icon-profile.png) center top no-repeat;
-          margin: var(--profile-icon-margin);
-          padding: 180px 20px 20px 20px;
-          color: var(--secondary-color);
-          font: var(--header-bar-title);
-          text-align: center;
-        }
-
-        label {
-          font: bold 14px var(--theme-font);
-          color: var(--primary-color);
-        }
-        button {
-          background-color: var(--button-background-color);
-          margin: var(--button-margin);
-          height: var(--button-height);
-          border-radius: var(--button-radius);
-          border: var(--button-border);
-          font: var(--button-font);
-          color: var(--button-color);
-          cursor: pointer;
-        }
-        button:hover,
-        button:active {
-          background-color: var(--button-active-background-color);
-        }
-        button:active {
-          border: var(--button-active-border);
-        }
-      `
-    ]
+export class ForgotPassword extends AbstractAuthPage {
+  get pageName() {
+    return 'forgot password'
   }
 
-  render() {
+  get actionUrl() {
+    return '/forgot-password'
+  }
+
+  get formfields() {
     return html`
-      <div class="wrap">
-        <form action="/forgot-password" method="POST" @submit=${e => this._handleSubmit(e)}>
-          <label for="email"><i18n-msg msgid="label.email"></i18n-msg></label>
-          <input id="email" name="email" type="email" placeholder="${i18next.t('text.your email address')}" required />
-          <button id="submit-button" type="submit"><i18n-msg msgid="label.submit"></i18n-msg></button>
-        </form>
+      <input id="email" name="email" type="hidden" required />
+      <div class="field">
+        <mwc-textfield
+          name="email"
+          type="email"
+          label=${i18next.t('label.email')}
+          required
+          placeholder="${i18next.t('text.your email address')}"
+          @input=${e => {
+            var emailInput = this.renderRoot.querySelector('#email')
+            emailInput.value = e.target.value
+          }}
+        ></mwc-textfield>
       </div>
-      <snack-bar id="snackbar"></snack-bar>
+      <mwc-button id="submit-button" class="ui button" type="submit" raised @click=${e => this._onSubmit(e)}>
+        <i18n-msg msgid="button.submit"></i18n-msg>
+      </mwc-button>
     `
   }
 
-  async _handleSubmit(e) {
-    e.preventDefault()
+  get links() {
+    return html`
+      <a class="link" href=${auth.fullpage(auth.signinPage)}>
+        <mwc-button><i18n-msg msgid="field.sign in"></i18n-msg></mwc-button>
+      </a>
+    `
+  }
 
+  async submit() {
+    this._handleSubmit(this.formEl)
+  }
+
+  async _handleSubmit(form) {
     var timer
-    var form = e.target
     var formData = new FormData(form)
     var button = this.renderRoot.querySelector('#submit-button')
 
@@ -93,12 +72,24 @@ export class ForgotPassword extends localize(i18next)(LitElement) {
         body: JSON.stringify(Object.fromEntries(formData.entries())),
         signal
       })
-      if (response && response.ok) {
-        this.showSnackbar({
-          level: 'info',
-          message: i18next.t('text.password reset email sent')
-        })
+
+      const { status, ok } = response
+      let level, message
+
+      if (ok) {
+        level = 'info'
+        message = 'password reset email sent'
       }
+
+      if (status == 404) {
+        level = 'error'
+        message = 'email account does not exist'
+      }
+
+      this.showSnackbar({
+        message,
+        level
+      })
     } catch (e) {
     } finally {
       button.disabled = false
@@ -106,14 +97,11 @@ export class ForgotPassword extends localize(i18next)(LitElement) {
     }
   }
 
-  showSnackbar({ level, message, timer = 3000 }) {
-    const snackbar = this.renderRoot.querySelector('#snackbar')
-    snackbar.level = level
-    snackbar.message = message
-    snackbar.active = true
-    setTimeout(() => {
-      snackbar.active = false
-    }, timer)
+  showSnackbar({ message, level }) {
+    super.showSnackbar({
+      level,
+      message
+    })
   }
 }
 

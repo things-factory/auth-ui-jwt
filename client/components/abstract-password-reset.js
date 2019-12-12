@@ -1,15 +1,19 @@
 import '@material/mwc-button'
-import { i18next, localize } from '@things-factory/i18n-base'
-import { css, html, LitElement } from 'lit-element'
+import '@material/mwc-textfield'
+import { i18next } from '@things-factory/i18n-base'
+import { css, html } from 'lit-element'
 import '../components/profile-component'
 import { generatePasswordPatternRegexp } from '../utils/generate-password-pattern-regexp'
+import { AbstractAuthPage } from './abstract-auth-page'
 
-export class AbstractPasswordReset extends localize(i18next)(LitElement) {
+export class AbstractPasswordReset extends AbstractAuthPage {
   static get styles() {
     return [
       css`
         :host {
-          display: block;
+          display: flex;
+          width: 100vw;
+          height: 100vh;
           background-color: var(--main-section-background-color);
         }
         .wrap {
@@ -20,35 +24,16 @@ export class AbstractPasswordReset extends localize(i18next)(LitElement) {
         :host *:focus {
           outline: none;
         }
-        .user {
-          background: url(/assets/images/icon-profile.png) center top no-repeat;
-          margin: var(--profile-icon-margin);
-          padding: 180px 20px 20px 20px;
-          color: var(--secondary-color);
-          font: var(--header-bar-title);
-          text-align: center;
-        }
 
-        label {
-          font: bold 14px var(--theme-font);
-          color: var(--primary-color);
+        mwc-textfield {
+          width: 100%;
+          --mdc-theme-primary: var(--auth-input-color);
+          --mdc-theme-error: var(--status-danger-color);
+          --mdc-text-field-fill-color: transparent;
+          font: var(--auth-input-font);
         }
-        button {
-          background-color: var(--button-background-color);
-          margin: var(--button-margin);
-          height: var(--button-height);
-          border-radius: var(--button-radius);
-          border: var(--button-border);
-          font: var(--button-font);
-          color: var(--button-color);
-          cursor: pointer;
-        }
-        button:hover,
-        button:active {
-          background-color: var(--button-active-background-color);
-        }
-        button:active {
-          border: var(--button-active-border);
+        mwc-button {
+          --mdc-theme-primary: var(--auth-button-background-color);
         }
       `
     ]
@@ -72,42 +57,95 @@ export class AbstractPasswordReset extends localize(i18next)(LitElement) {
   render() {
     return html`
       <div class="wrap">
-        <form action="${this.actionUrl}" method="POST">
-          <label for="password"><i18n-msg msgid="label.password"></i18n-msg></label>
-          <input
-            id="password"
+        <h1 id="title"></h1>
+        <form
+          id="form"
+          action="${this.actionUrl}"
+          method="POST"
+          @keypress=${e => {
+            if (e.key == 'Enter') this._onSubmit(e)
+          }}
+        >
+          <input name="token" type="hidden" .value=${this.token} required />
+          <input id="password" name="password" type="hidden" required />
+          <mwc-textfield
             name="password"
             type="password"
+            label="${i18next.t('label.password')}"
             placeholder="${i18next.t('text.password')}"
             .pattern="${generatePasswordPatternRegexp({
               useTightPattern: true
             }).source}"
+            helper=${i18next.t('text.password rule')}
+            helperPersistent
             @input=${e => {
               var val = e.target.value
               var confirmPass = this.renderRoot.querySelector('#confirm-password')
+              var passwordInput = this.renderRoot.querySelector('#password')
+              passwordInput.value = val
               confirmPass.setAttribute('pattern', val)
             }}
             required
-          />
-          <span class="hint"><i18n-msg msgid="text.password rule"></i18n-msg></span>
-          <label for="confirm-password"><i18n-msg msgid="label.confirm password"></i18n-msg></label>
-          <input
+          ></mwc-textfield>
+          <mwc-textfield
             id="confirm-password"
             name="confirm-password"
             type="password"
+            label="${i18next.t('label.confirm password')}"
             placeholder="${i18next.t('text.confirm password')}"
             required
-          />
-          <input name="token" type="hidden" .value=${this.token} required />
-          <button id="submit-button" type="submit"><i18n-msg msgid="${this.submitButtonLabel}"></i18n-msg></button>
+          ></mwc-textfield>
+          <mwc-button id="submit-button" type="submit" raised @click=${e => this._onSubmit(e)}>
+            <i18n-msg msgid="${this.submitButtonLabel}"></i18n-msg>
+          </mwc-button>
         </form>
+        <div id="locale-area">
+          <label for="locale-selector"><mwc-icon>language</mwc-icon></label>
+          <i18n-selector
+            id="locale-selector"
+            value=${i18next.language || 'en-US'}
+            @change=${e => {
+              var locale = e.detail
+              if (!locale) return
+
+              var localeInput = this.renderRoot.querySelector('#locale-input')
+              localeInput.value = locale
+
+              i18next.changeLanguage(locale)
+            }}
+          ></i18n-selector>
+        </div>
       </div>
+      <snack-bar
+        id="snackbar"
+        level="error"
+        .message="${i18next.t(`text.${this.message}`, {
+          ...this.detail
+        })}"
+      ></snack-bar>
     `
   }
 
   updated(changed) {
+    super.updated(changed)
     if (changed.has('data')) {
       this.token = this.data.token
     }
+
+    if (changed.has('message')) {
+      if (!this.message) {
+        this.hideSnackbar()
+      } else {
+        this.showSnackbar({
+          timer: -1
+        })
+      }
+    }
   }
+
+  async submit() {
+    this.formEl.submit()
+  }
+
+  async handleSubmit(e) {}
 }

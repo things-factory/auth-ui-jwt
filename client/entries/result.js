@@ -3,12 +3,14 @@ import { i18next, localize } from '@things-factory/i18n-base'
 import { css, html, LitElement } from 'lit-element'
 import '../components/profile-component'
 
-export class AuthCongratulations extends localize(i18next)(LitElement) {
+export class AuthResult extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       css`
         :host {
-          display: block;
+          display: flex;
+          width: 100vw;
+          height: 100vh;
           background-color: var(--main-section-background-color);
         }
         .wrap {
@@ -85,4 +87,4 @@ export class AuthCongratulations extends localize(i18next)(LitElement) {
   }
 }
 
-customElements.define('auth-congratulations', AuthCongratulations)
+customElements.define('auth-result', AuthResult)

@@ -1,5 +1,7 @@
 import '@material/mwc-button'
 import '@material/mwc-icon-button'
+import { auth } from '@things-factory/auth-base'
+import JWTAuthProvider from '@things-factory/auth-provider-jwt/client/jwt-auth-provider'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { css, html, LitElement } from 'lit-element'
 import '../components/profile-component'
@@ -16,7 +18,9 @@ export class AuthDomainSelect extends localize(i18next)(LitElement) {
     return [
       css`
         :host {
-          display: block;
+          display: flex;
+          width: 100vw;
+          height: 100vh;
           background-color: var(--main-section-background-color);
         }
         .wrap {
@@ -115,16 +119,21 @@ export class AuthDomainSelect extends localize(i18next)(LitElement) {
             label="${i18next.t('button.logout')}"
             @click=${e => (window.location.pathname = '/signout')}
           ></mwc-button>
-          <mwc-button label="${i18next.t('button.profile')}" @click=${e => this.showProfilePopup()}></mwc-button>
+          <!-- <mwc-button label="${i18next.t('button.profile')}" @click=${e =>
+            this.showProfilePopup()}></mwc-button> -->
         </div>
       </div>
-      <div id="popup" hidden>
+      <!-- <div id="popup" hidden>
         <div class="popup-content">
           <mwc-icon-button id="close-button" icon="close" @click=${e => this.closePopup()}></mwc-icon-button>
           <profile-component></profile-component>
         </div>
-      </div>
+      </div> -->
     `
+  }
+
+  firstUpdated() {
+    auth.authProvider = JWTAuthProvider
   }
 
   updated(changed) {

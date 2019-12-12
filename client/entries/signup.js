@@ -15,7 +15,6 @@ export class AuthSignup extends AbstractSign {
 
   get formfields() {
     return html`
-      <input id="locale-input" type="hidden" name="locale" .value="${i18next.language}" />
       <input id="name" type="hidden" name="name" />
       <input id="email" type="hidden" name="email" />
       <input id="password" type="hidden" name="password" />
