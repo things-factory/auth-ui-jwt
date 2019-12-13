@@ -22,17 +22,16 @@ export default function bootstrap() {
   }
 
   function onError(ex) {
+    var { detail = {} } = ex
+    var { message } = detail
     document.dispatchEvent(
       new CustomEvent('notify', {
         detail: {
           level: 'error',
-          message: ex,
-          ex
+          message
         }
       })
     )
-
-    unsubscribe()
   }
 
   auth.on('signin', () => {
@@ -46,6 +45,8 @@ export default function bootstrap() {
     subscribe({
       ...credential
     })
+
+    if (credential.locale) i18next.changeLanguage(credential.locale)
   })
   auth.on('error', onError)
 

@@ -23,6 +23,18 @@ export default {
     {
       tagname: 'auth-activate',
       page: 'activate'
+    },
+    {
+      tagname: 'forgot-password',
+      page: 'forgot-password'
+    },
+    {
+      tagname: 'reset-password',
+      page: 'reset-password'
+    },
+    {
+      tagname: 'auth-congratulations',
+      page: 'congratulations'
     }
   ],
   bootstrap
