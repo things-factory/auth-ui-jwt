@@ -29,6 +29,8 @@ body {
   --change-password-field-border-radius: var(--border-radius);
   --change-password-field-padding: 2px 9px;
   --change-password-field-width: 100%;
+
+  --auth-input-field-width: var(--change-password-field-width);
 }
 
 @media only screen and (max-width: 460px) {
