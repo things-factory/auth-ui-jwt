@@ -2,13 +2,47 @@ import '@material/mwc-button'
 import { i18next, localize } from '@things-factory/i18n-base'
 import '@things-factory/layout-ui/client/layouts/snack-bar'
 import { css, html, LitElement } from 'lit-element'
+
 export class AuthActivate extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       css`
         :host {
           display: block;
+          height: 100vh;
           background-color: var(--main-section-background-color);
+          --mdc-theme-primary: #fff;
+        }
+        .wrap {
+          margin: auto;
+          padding: var(--auth-special-page-padding);
+          background: url(/assets/images/icon-activate.png) center 70px no-repeat;
+          max-width: 500px;
+          text-align: center;
+        }
+        h1 {
+          margin: 0;
+          padding: 0;
+          font: var(--auth-title-font);
+          color: var(--auth-title-color);
+        }
+        p {
+          margin: 0;
+          padding: var(--auth-description-padding);
+          font: var(--auth-description-font);
+          color: var(--auth-description-color);
+        }
+        #button-area {
+          border-top: 1px dashed #ccc;
+          padding-top: 10px;
+        }
+        mwc-button {
+          border-radius: var(--border-radius);
+          background-color: var(--auth-button-background-color);
+          font: var(--auth-button-font);
+        }
+        mwc-button:hover {
+          background-color: var(--auth-button-background-focus-color);
         }
       `
     ]
@@ -25,6 +59,10 @@ export class AuthActivate extends localize(i18next)(LitElement) {
     return html`
       <div class="wrap">
         <h1><i18n-msg msgid="text.your account is not activated"></i18n-msg></h1>
+
+        <!--description message container-->
+        <p></p>
+
         <form
           id="form"
           action="/resend-verification-email"

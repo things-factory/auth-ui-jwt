@@ -8,15 +8,29 @@ export class AuthResult extends localize(i18next)(LitElement) {
     return [
       css`
         :host {
-          display: flex;
-          width: 100vw;
+          display: block;
           height: 100vh;
           background-color: var(--main-section-background-color);
+          --mdc-theme-primary: #fff;
         }
         .wrap {
-          max-width: 550px;
-          margin: 15px auto;
+          margin: auto;
+          padding: var(--auth-special-page-padding);
+          background: url(/assets/images/icon-result.png) center 70px no-repeat;
+          max-width: 500px;
           text-align: center;
+        }
+        h1 {
+          margin: 0;
+          padding: 0;
+          font: var(--auth-title-font);
+          color: var(--auth-title-color);
+        }
+        p {
+          margin: 0;
+          padding: var(--auth-description-padding);
+          font: var(--auth-description-font);
+          color: var(--auth-description-color);
         }
         :host *:focus {
           outline: none;
@@ -34,22 +48,17 @@ export class AuthResult extends localize(i18next)(LitElement) {
           font: bold 14px var(--theme-font);
           color: var(--primary-color);
         }
-        button {
-          background-color: var(--button-background-color);
-          margin: var(--button-margin);
-          height: var(--button-height);
-          border-radius: var(--button-radius);
-          border: var(--button-border);
-          font: var(--button-font);
-          color: var(--button-color);
-          cursor: pointer;
+        #button-area {
+          border-top: 1px dashed #ccc;
+          padding-top: 10px;
         }
-        button:hover,
-        button:active {
-          background-color: var(--button-active-background-color);
+        mwc-button {
+          border-radius: var(--border-radius);
+          background-color: var(--auth-button-background-color);
+          font: var(--auth-button-font);
         }
-        button:active {
-          border: var(--button-active-border);
+        mwc-button:hover {
+          background-color: var(--auth-button-background-focus-color);
         }
       `
     ]
@@ -72,7 +81,10 @@ export class AuthResult extends localize(i18next)(LitElement) {
     return html`
       <div class="wrap">
         <div id="message-area">
-          <i18n-msg msgid="text.${this.message}"></i18n-msg>
+          <h1><i18n-msg msgid="text.${this.message}"></i18n-msg></h1>
+
+          <!--description message container-->
+          <p></p>
         </div>
         <div id="button-area">
           <mwc-button

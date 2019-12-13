@@ -18,14 +18,16 @@ export class AuthDomainSelect extends localize(i18next)(LitElement) {
     return [
       css`
         :host {
-          display: flex;
-          width: 100vw;
+          display: block;
           height: 100vh;
           background-color: var(--main-section-background-color);
+          --mdc-theme-primary: #fff;
         }
         .wrap {
-          max-width: 550px;
-          margin: 15px auto;
+          margin: auto;
+          padding: var(--auth-special-page-padding);
+          background: url(/assets/images/icon-domain.png) center 70px no-repeat;
+          max-width: 500px;
           text-align: center;
         }
         :host *:focus {
@@ -44,22 +46,29 @@ export class AuthDomainSelect extends localize(i18next)(LitElement) {
           font: bold 14px var(--theme-font);
           color: var(--primary-color);
         }
-        button {
-          background-color: var(--button-background-color);
-          margin: var(--button-margin);
-          height: var(--button-height);
-          border-radius: var(--button-radius);
-          border: var(--button-border);
-          font: var(--button-font);
-          color: var(--button-color);
-          cursor: pointer;
+        h1 {
+          margin: 0;
+          padding: 0;
+          font: var(--auth-title-font);
+          color: var(--auth-title-color);
         }
-        button:hover,
-        button:active {
-          background-color: var(--button-active-background-color);
+        p {
+          margin: 0;
+          padding: var(--auth-description-padding);
+          font: var(--auth-description-font);
+          color: var(--auth-description-color);
         }
-        button:active {
-          border: var(--button-active-border);
+        #button-area {
+          border-top: 1px dashed #ccc;
+          padding-top: 10px;
+        }
+        mwc-button {
+          border-radius: var(--border-radius);
+          background-color: var(--auth-button-background-color);
+          font: var(--auth-button-font);
+        }
+        mwc-button:hover {
+          background-color: var(--auth-button-background-focus-color);
         }
 
         #popup {
