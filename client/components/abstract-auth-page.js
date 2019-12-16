@@ -66,7 +66,7 @@ export class AbstractAuthPage extends localize(i18next)(LitElement) {
         </div>
 
         <div class="auth-form">
-          <h3><i18n-msg msgid="field.${this.pageName}"></i18n-msg></h3>
+          <h3><i18n-msg msgid="title.${this.pageName}"></i18n-msg></h3>
 
           <form
             id="form"

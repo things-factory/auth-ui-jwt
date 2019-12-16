@@ -8,6 +8,10 @@ export class ResetPassword extends AbstractPasswordReset {
   get submitButtonLabel() {
     return 'label.change password'
   }
+
+  get title() {
+    return 'reset password'
+  }
 }
 
 customElements.define('reset-password', ResetPassword)

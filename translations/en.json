@@ -7,6 +7,7 @@
   "field.sign out": "sign out",
   "field.sign up": "sign up",
   "field.token": "token",
+  "label.change password": "change password",
   "label.delete account": "delete account",
   "label.language": "language",
   "label.password": "password",
@@ -17,11 +18,16 @@
   "text.current password": "current password",
   "text.delete account warning message": "This action cannot be undone. This will permanently delete all about this account.\n\nPlease type in the email and password of this account to confirm.",
   "text.new password": "new password",
+  "text.no domain available": "no domain available",
   "text.password rule": "Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.",
   "text.passwords do not match": "These passwords don't match.",
   "text.select domain": "select domain",
   "text.signed in": "signed in",
   "text.signed out": "signed out",
   "text.your account is not activated": "your account is not activated.",
-  "text.no domain available": "no domain available"
+  "title.forgot password": "forgot password",
+  "title.reset password": "reset password",
+  "title.sign in": "sign in",
+  "title.sign up": "sign up",
+  "title.unlock account": "unlock account"
 }

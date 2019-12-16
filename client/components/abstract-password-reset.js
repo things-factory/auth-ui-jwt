@@ -11,18 +11,53 @@ export class AbstractPasswordReset extends AbstractAuthPage {
     return [
       css`
         :host {
-          display: flex;
+          display: block;
           width: 100vw;
           height: 100vh;
           background-color: var(--main-section-background-color);
+          --mdc-theme-primary: #fff;
         }
         .wrap {
-          max-width: 550px;
-          margin: 15px auto;
+          position: relative;
+          height: 100%;
+          box-sizing: border-box;
+          max-width: 500px;
+          margin: auto;
+          padding: var(--auth-special-page-padding);
+          background: url(/assets/images/icon-activate.png) center 70px no-repeat;
           text-align: center;
         }
-        :host *:focus {
-          outline: none;
+        h1 {
+          margin: 0;
+          padding: 0;
+          font: var(--auth-title-font);
+          color: var(--auth-title-color);
+        }
+
+        p {
+          margin: 0;
+          padding: var(--auth-description-padding);
+          font: var(--auth-description-font);
+          color: var(--auth-description-color);
+        }
+
+        #button-area {
+          border-top: 1px dashed #ccc;
+          padding-top: 10px;
+        }
+
+        #locale-area {
+          position: absolute;
+          bottom: 50px;
+          display: flex;
+          width: 100%;
+        }
+
+        #locale-area > label {
+          display: flex;
+          align-items: center;
+          color: #017e7f;
+          --mdc-icon-size: 16px;
         }
 
         mwc-textfield {
@@ -34,6 +69,14 @@ export class AbstractPasswordReset extends AbstractAuthPage {
         }
         mwc-button {
           --mdc-theme-primary: var(--auth-button-background-color);
+        }
+
+        i18n-selector {
+          width: 100%;
+          --i18n-selector-field-border: none;
+          --i18n-selector-field-background-color: none;
+          --i18n-selector-field-font-size: 14px;
+          --i18n-selector-field-color: #394e64;
         }
       `
     ]
@@ -57,7 +100,9 @@ export class AbstractPasswordReset extends AbstractAuthPage {
   render() {
     return html`
       <div class="wrap">
-        <h1 id="title"></h1>
+        <h1 id="title"><i18n-msg msgid="title.${this.title}"></i18n-msg></h1>
+
+        <p></p>
         <form
           id="form"
           action="${this.actionUrl}"
@@ -95,10 +140,12 @@ export class AbstractPasswordReset extends AbstractAuthPage {
             placeholder="${i18next.t('text.confirm password')}"
             required
           ></mwc-textfield>
+        </form>
+        <div id="button-area">
           <mwc-button id="submit-button" type="submit" raised @click=${e => this._onSubmit(e)}>
             <i18n-msg msgid="${this.submitButtonLabel}"></i18n-msg>
           </mwc-button>
-        </form>
+        </div>
         <div id="locale-area">
           <label for="locale-selector"><mwc-icon>language</mwc-icon></label>
           <i18n-selector
@@ -107,9 +154,6 @@ export class AbstractPasswordReset extends AbstractAuthPage {
             @change=${e => {
               var locale = e.detail
               if (!locale) return
-
-              var localeInput = this.renderRoot.querySelector('#locale-input')
-              localeInput.value = locale
 
               i18next.changeLanguage(locale)
             }}

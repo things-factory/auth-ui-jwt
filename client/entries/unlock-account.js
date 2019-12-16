@@ -8,6 +8,10 @@ export class UnlockAccount extends AbstractPasswordReset {
   get submitButtonLabel() {
     return 'label.unlock account'
   }
+
+  get title() {
+    return 'unlock account'
+  }
 }
 
 customElements.define('unlock-account', UnlockAccount)
