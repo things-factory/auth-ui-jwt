@@ -13,6 +13,7 @@ export class AbstractSign extends AbstractAuthPage {
         this.hideSnackbar()
       } else {
         this.showSnackbar({
+          level: 'error',
           timer: -1
         })
       }
