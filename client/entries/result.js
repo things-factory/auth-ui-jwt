@@ -20,6 +20,10 @@ export class AuthResult extends localize(i18next)(LitElement) {
           max-width: 500px;
           text-align: center;
         }
+
+        .wrap.congratulations {
+          background-image: url(/assets/images/icon-congratulations.png);
+        }
         h1 {
           margin: 0;
           padding: 0;
@@ -67,19 +71,21 @@ export class AuthResult extends localize(i18next)(LitElement) {
   static get properties() {
     return {
       data: Object,
-      message: String
+      message: String,
+      resultType: String
     }
   }
 
   updated(changed) {
     if (changed.has('data')) {
       this.message = this.data.message
+      this.resultType = this.data.resultType || 'congratulations'
     }
   }
 
   render() {
     return html`
-      <div class="wrap">
+      <div class="wrap ${this.resultType}">
         <div id="message-area">
           <h1><i18n-msg msgid="text.${this.message}"></i18n-msg></h1>
 
