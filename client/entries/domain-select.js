@@ -92,6 +92,11 @@ export class AuthDomainSelect extends localize(i18next)(LitElement) {
           position: absolute;
           right: 0;
         }
+        select {
+          margin: 10px 0px;
+          min-width: 200px;
+          font: var(--auth-input-font);
+        }
       `
     ]
   }
@@ -102,7 +107,8 @@ export class AuthDomainSelect extends localize(i18next)(LitElement) {
         <div id="domain-select-area">
           ${this.domains && this.domains.length
             ? html`
-                <label for="domain-select"><i18n-msg msgid="text.select domain"></i18n-msg></label>
+                <h1><i18n-msg msgid="text.select domain"></i18n-msg></h1>
+
                 <select
                   id="domain-select"
                   @change=${e => {
