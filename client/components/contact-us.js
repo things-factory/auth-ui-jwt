@@ -1,6 +1,9 @@
 import '@material/mwc-textarea'
 import '@material/mwc-textfield'
+import '@material/mwc-button'
+import '@material/mwc-dialog'
 import { auth } from '@things-factory/auth-base'
+import '@things-factory/i18n-base'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { css, html, LitElement } from 'lit-element'
 
@@ -8,80 +11,86 @@ export class ContactUs extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       css`
+        :host {
+          --mdc-theme-primary: var(--primary-color);
+        }
         * {
           box-sizing: border-box;
         }
         *:focus {
           outline: none;
         }
-        input {
-          border: var(--change-password-field-border);
-          border-radius: var(--change-password-field-border-radius);
-          padding: var(--change-password-field-padding);
 
-          font: var(--change-password-field-font);
-          width: var(--change-password-field-width);
-        }
-        input:focus {
-          border: 1px solid var(--focus-background-color);
-        }
-
-        div.field {
-          padding-bottom: 10px;
-        }
-
-        ::placeholder {
-          font-size: 0.8rem;
-          text-transform: capitalize;
-        }
-
-        button {
-          background-color: var(--secondary-color, #394e64);
-          margin: 2px 2px 10px 2px;
-          height: var(--button-height, 28px);
-          color: var(--button-color, #fff);
-          font: var(--button-font);
-          border-radius: var(--button-radius, 5px);
-          border: var(--button-border, 1px solid transparent);
-          line-height: 1.5;
-        }
-        button:hover,
-        button:active {
-          background-color: var(--button-active-background-color, #22a6a7);
-          border: var(--button-active-border);
+        #input-form {
+          display: grid;
+          grid-template-rows: 1fr 1fr 3fr;
+          grid-gap: 10px 0;
         }
       `
     ]
   }
 
+  get dialog() {
+    return this.renderRoot.querySelector('#dialog')
+  }
+
   render() {
     return html`
-      <form @submit=${e => this._handleSubmit(e)}>
-        <div class="field">
-          <mwc-textfield type="text" name="subject" label=${i18next.t('label.subject')} required></mwc-textfield>
+      <mwc-button label=${i18next.t('button.need help')} @click=${e => (this.dialog.open = true)}></mwc-button>
+      <mwc-dialog id="dialog" heading=${i18next.t('title.need help')}>
+        <form action="" method="POST">
+          <input id="subject-input" name="subject" type="hidden" />
+          <input id="sender-input" name="sender" type="hidden" />
+          <input id="content-input" name="content" type="hidden" />
+        </form>
+        <div id="input-form">
+          <mwc-textfield
+            type="text"
+            label=${i18next.t('label.subject')}
+            dialogInitialFocus
+            required
+            @input=${e => {
+              const val = e.target.value
+              this.renderRoot.querySelector('#subject-input').value = val
+            }}
+          ></mwc-textfield>
+          <mwc-textfield
+            type="text"
+            name="sender"
+            label=${i18next.t('label.email')}
+            required
+            @input=${e => {
+              const val = e.target.value
+              this.renderRoot.querySelector('#sender-input').value = val
+            }}
+          ></mwc-textfield>
+          <mwc-textarea
+            name="content"
+            label=${i18next.t('label.content')}
+            required
+            @keydown=${e => e.stopPropagation()}
+            @input=${e => {
+              const val = e.target.value
+              this.renderRoot.querySelector('#content-input').value = val
+            }}
+          ></mwc-textarea>
         </div>
-        <div class="field">
-          <mwc-textfield type="text" name="sender" label=${i18next.t('label.email')} required></mwc-textfield>
-        </div>
-        <div class="field">
-          <mwc-textarea name="content" label=${i18next.t('label.content')} required></mwc-textarea>
-        </div>
-
-        <button class="ui button" type="submit"><i18n-msg msgid="label.submit"></i18n-msg></button>
-      </form>
+        <mwc-button
+          slot="primaryAction"
+          type="submit"
+          label=${i18next.t('label.submit')}
+          raised
+          @click=${e => this._submit()}
+        ></mwc-button>
+        <mwc-button slot="secondaryAction" dialogAction="cancel" label=${i18next.t('label.cancel')}></mwc-button>
+      </mwc-dialog>
     `
   }
 
-  async _encodeSha256(password) {
-    const encoder = new TextEncoder()
-    const encoded = encoder.encode(password)
+  _checkValidity() {}
 
-    const buffer = await crypto.subtle.digest('SHA-256', encoded)
-    return hexString(buffer)
-  }
-
-  async _handleSubmit(e) {
-    e.preventDefault()
+  _submit(e) {
+    if (!this._checkValidity()) return
 
     const form = e.target
 

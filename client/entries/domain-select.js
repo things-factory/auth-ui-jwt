@@ -4,6 +4,7 @@ import { auth } from '@things-factory/auth-base'
 import JWTAuthProvider from '@things-factory/auth-provider-jwt/client/jwt-auth-provider'
 import { i18next, localize } from '@things-factory/i18n-base'
 import { css, html, LitElement } from 'lit-element'
+import '../components/contact-us'
 import '../components/profile-component'
 
 export class AuthDomainSelect extends localize(i18next)(LitElement) {
@@ -122,15 +123,15 @@ export class AuthDomainSelect extends localize(i18next)(LitElement) {
                 <span><i18n-msg msgid="text.no domain available"></i18n-msg></span>
               `}
         </div>
-        <div id="contact-area"></div>
         <div id="button-area">
-          <mwc-button
-            label="${i18next.t('button.logout')}"
-            @click=${e => (window.location.pathname = '/signout')}
-          ></mwc-button>
+          <mwc-button label="${i18next.t('button.logout')}" @click=${e => (window.location.pathname = '/signout')}>
+          </mwc-button>
           <!-- <mwc-button label="${i18next.t('button.profile')}" @click=${e =>
             this.showProfilePopup()}></mwc-button> -->
         </div>
+      </div>
+      <div id="contact-area">
+        <contact-us></contact-us>
       </div>
       <!-- <div id="popup" hidden>
         <div class="popup-content">

@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@material/mwc-button": "^0.11.1",
+    "@material/mwc-dialog": "^0.11.1",
     "@material/mwc-icon": "^0.11.1",
     "@material/mwc-textarea": "^0.11.1",
     "@material/mwc-textfield": "^0.11.1",
