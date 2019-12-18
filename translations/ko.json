@@ -20,6 +20,7 @@
   "text.new password": "새 패스워드",
   "text.no domain available": "사용할 수 있는 도메인이 없습니다.",
   "text.password rule": "최소 15자 이상 혹은 숫자와 소문자를 포함하여 8자 이상이어야 합니다.",
+  "text.user-not-found": "사용자가 존재하지 않습니다.",
   "text.password-not-matched": "패스워드가 일치하지 않습니다. 5번 실패하면 계정이 잠깁니다. (실패: {failCount})",
   "text.passwords do not match": "패스워드가 일치하지 않습니다.",
   "text.select domain": "도메인 선택",
