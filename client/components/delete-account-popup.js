@@ -73,7 +73,7 @@ export class DeleteAccountPopup extends localize(i18next)(LitElement) {
         <div class="field">
           <label for="email"><i18n-msg msgid="label.email"></i18n-msg></label>
           <input id="email" type="email" name="email" required />
-          <label for="password"><i18n-msg msgid="label.current password"></i18n-msg></label>
+          <label for="password"><i18n-msg msgid="label.password"></i18n-msg></label>
           <input id="password" type="password" name="password" required />
         </div>
 
