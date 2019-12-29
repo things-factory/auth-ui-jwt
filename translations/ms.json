@@ -1,4 +1,5 @@
 {
+  "button.need help": "perlukan bantuan",
   "field.confirm password": "sahkan kata laluan",
   "field.email": "e-mel address",
   "field.forgot-password": "terlupa kata laluan",
@@ -12,6 +13,9 @@
   "label.password": "kata laluan",
   "label.resend": "hantar semula",
   "text.auth profile": "profil pengguna",
+  "text.password-not-matched": "kata laluan tidak padan",
+  "text.user-not-found": "pengguna tidak wujud",
+  "text.user-locked": "pengguna dikunci",
   "text.change password": "tukar kata laluan",
   "text.confirm password": "sahkan kata laluan",
   "text.current password": "kata laluan terkini",
