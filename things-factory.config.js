@@ -1,5 +1,5 @@
-import route from './client/route'
 import bootstrap from './client/bootstrap'
+import route from './client/route'
 
 export default {
   route,
@@ -15,6 +15,26 @@ export default {
     {
       tagname: 'auth-profile',
       page: 'profile'
+    },
+    {
+      tagname: 'auth-domain-select',
+      page: 'domain-select'
+    },
+    {
+      tagname: 'auth-activate',
+      page: 'activate'
+    },
+    {
+      tagname: 'forgot-password',
+      page: 'forgot-password'
+    },
+    {
+      tagname: 'reset-password',
+      page: 'reset-password'
+    },
+    {
+      tagname: 'auth-congratulations',
+      page: 'congratulations'
     }
   ],
   bootstrap
