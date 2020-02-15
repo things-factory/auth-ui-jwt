@@ -1,4 +1,7 @@
 {
+  "button.go to home": "go to home",
+  "button.logout": "logout",
+  "button.need help": "need help",
   "field.confirm password": "确认密码",
   "field.email": "电子邮件",
   "field.forgot-password": "忘记密码",

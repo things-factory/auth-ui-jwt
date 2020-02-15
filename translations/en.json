@@ -1,5 +1,6 @@
 {
   "button.go to home": "go to home",
+  "button.logout": "logout",
   "button.need help": "need help",
   "field.confirm password": "confirm password",
   "field.email": "email address",
