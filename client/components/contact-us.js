@@ -78,11 +78,11 @@ export class ContactUs extends localize(i18next)(LitElement) {
         <mwc-button
           slot="primaryAction"
           type="submit"
-          label=${i18next.t('label.submit')}
+          label=${i18next.t('button.submit')}
           raised
           @click=${e => this._submit()}
         ></mwc-button>
-        <mwc-button slot="secondaryAction" dialogAction="cancel" label=${i18next.t('label.cancel')}></mwc-button>
+        <mwc-button slot="secondaryAction" dialogAction="cancel" label=${i18next.t('button.cancel')}></mwc-button>
       </mwc-dialog>
     `
   }
