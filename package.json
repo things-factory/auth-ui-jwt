@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/auth-ui-jwt",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "main": "dist-server/index.js",
   "browser": "client/index.js",
   "things-factory": true,
@@ -34,6 +34,9 @@
     "@things-factory/i18n-ui": "^2.0.0",
     "@things-factory/layout-ui": "^2.0.0",
     "@things-factory/more-base": "^2.0.0"
+  },
+  "resolutions": {
+    "@things-factory/auth-base": "^2.0.2"
   },
   "devDependencies": {
     "@things-factory/tester": "^2.0.0"
