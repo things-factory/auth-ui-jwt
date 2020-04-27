@@ -1,8 +1,8 @@
 {
+  "button.cancel": "취소",
   "button.go to home": "홈으로 이동",
   "button.logout": "로그아웃",
   "button.need help": "도움이 필요하세요?",
-  "button.cancel": "취소",
   "button.submit": "전송",
   "field.confirm password": "패스워드 확인",
   "field.email": "이메일",
