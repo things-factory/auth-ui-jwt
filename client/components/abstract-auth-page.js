@@ -5,21 +5,25 @@ import { auth } from '@things-factory/auth-base'
 import { i18next, localize } from '@things-factory/i18n-base'
 import '@things-factory/i18n-ui/client/components/i18n-selector'
 import '@things-factory/layout-ui/client/layouts/snack-bar'
-import { css, html, LitElement } from 'lit-element'
+import { PageView } from '@things-factory/shell'
+import { css, html } from 'lit-element'
 import { AUTH_STYLE_SIGN } from '../auth-style-sign'
 
-export class AbstractAuthPage extends localize(i18next)(LitElement) {
+export class AbstractAuthPage extends localize(i18next)(PageView) {
   static get styles() {
     return [
       css`
         :host {
           overflow: hidden;
 
+          position: fixed;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+
           display: flex;
           flex-direction: row;
-
-          width: 100vw;
-          height: 100vh;
         }
 
         [hidden] {

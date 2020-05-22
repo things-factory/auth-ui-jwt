@@ -33,8 +33,8 @@ export default {
       page: 'reset-password'
     },
     {
-      tagname: 'auth-congratulations',
-      page: 'congratulations'
+      tagname: 'auth-result',
+      page: 'result'
     }
   ],
   bootstrap

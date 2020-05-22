@@ -34,7 +34,8 @@ export default function bootstrap() {
     )
   }
 
-  auth.on('signin', () => {
+  auth.on('signin', ({ accessToken, domains, redirectTo }) => {
+    navigate(redirectTo, true)
     onAuthentication(true)
   })
   auth.on('signout', () => {
@@ -48,18 +49,30 @@ export default function bootstrap() {
 
     if (credential.locale) i18next.changeLanguage(credential.locale)
   })
+
+  auth.on(auth.authRequiredEvent, () => {
+    navigate(`${auth.signinPath}`, true)
+  })
+
   auth.on('error', onError)
+
+  // store.subscribe(() => {
+  //   const { app, auth: authState } = store.getState()
+
+  //   if (!authState?.user) {
+  //     navigate(auth.signinPath, true)
+  //     return
+  //   }
+  //   if (!app?.contextPath) {
+  //   }
+  // })
 
   /* add user profile morenda */
   store.dispatch({
     type: ADD_MORENDA,
     morenda: {
-      icon: html`
-        <mwc-icon>account_circle</mwc-icon>
-      `,
-      name: html`
-        <i18n-msg msgid="text.auth profile"></i18n-msg>
-      `,
+      icon: html` <mwc-icon>account_circle</mwc-icon> `,
+      name: html` <i18n-msg msgid="text.auth profile"></i18n-msg> `,
       action: () => {
         navigate('profile')
       }
@@ -70,12 +83,8 @@ export default function bootstrap() {
   store.dispatch({
     type: ADD_MORENDA,
     morenda: {
-      icon: html`
-        <mwc-icon>exit_to_app</mwc-icon>
-      `,
-      name: html`
-        <i18n-msg msgid="field.sign out"></i18n-msg>
-      `,
+      icon: html` <mwc-icon>exit_to_app</mwc-icon> `,
+      name: html` <i18n-msg msgid="field.sign out"></i18n-msg> `,
       action: () => {
         auth.signout()
       }

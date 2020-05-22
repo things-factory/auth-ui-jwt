@@ -1,9 +1,7 @@
 import { AbstractAuthPage } from './abstract-auth-page'
 
 export class AbstractSign extends AbstractAuthPage {
-  async submit() {
-    this.formEl.submit()
-  }
+  async submit() {}
 
   updated(changed) {
     super.updated(changed)

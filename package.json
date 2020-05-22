@@ -23,11 +23,11 @@
     "migration:revert": "node ./node_modules/typeorm/cli.js migration:revert"
   },
   "dependencies": {
-    "@material/mwc-button": "^0.13.0",
-    "@material/mwc-dialog": "^0.13.0",
-    "@material/mwc-icon": "^0.13.0",
-    "@material/mwc-textarea": "^0.13.0",
-    "@material/mwc-textfield": "^0.13.0",
+    "@material/mwc-button": "^0.15.0",
+    "@material/mwc-dialog": "^0.15.0",
+    "@material/mwc-icon": "^0.15.0",
+    "@material/mwc-textarea": "^0.15.0",
+    "@material/mwc-textfield": "^0.15.0",
     "@things-factory/auth-base": "^2.0.0",
     "@things-factory/auth-provider-jwt": "^2.0.0",
     "@things-factory/i18n-base": "^2.0.0",

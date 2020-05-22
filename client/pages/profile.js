@@ -23,9 +23,7 @@ export class AuthProfile extends localize(i18next)(PageView) {
   }
 
   render() {
-    return html`
-      <profile-component></profile-component>
-    `
+    return html` <profile-component></profile-component> `
   }
 }
 
