@@ -1,9 +1,8 @@
 import { auth } from '@things-factory/auth-base'
 import '@things-factory/i18n-base'
-import { PageView } from '@things-factory/shell'
-import { css, html } from 'lit-element'
+import { css, html, LitElement } from 'lit-element'
 
-export class AuthSignOut extends PageView {
+export class AuthSignOut extends LitElement {
   static get styles() {
     return [
       css`

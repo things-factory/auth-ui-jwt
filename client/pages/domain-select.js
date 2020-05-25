@@ -1,13 +1,13 @@
 import '@material/mwc-button'
-import { i18next, localize } from '@things-factory/i18n-base'
-import { PageView, store, navigate } from '@things-factory/shell'
-import { css, html } from 'lit-element'
-import { connect } from 'pwa-helpers/connect-mixin.js'
 import { auth } from '@things-factory/auth-base'
+import { i18next, localize } from '@things-factory/i18n-base'
+import { navigate, store } from '@things-factory/shell'
+import { css, html, LitElement } from 'lit-element'
+import { connect } from 'pwa-helpers/connect-mixin.js'
 import '../components/contact-us'
 import '../components/profile-component'
 
-export class AuthDomainSelect extends localize(i18next)(connect(store)(PageView)) {
+export class AuthDomainSelect extends localize(i18next)(connect(store)(LitElement)) {
   static get properties() {
     return {
       domains: Array

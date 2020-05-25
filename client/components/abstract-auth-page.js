@@ -55,7 +55,8 @@ export class AbstractAuthPage extends localize(i18next)(PageView) {
       data: Object,
       message: String,
       detail: Object,
-      redirectTo: String
+      redirectTo: String,
+      onFinish: Function
     }
   }
 

@@ -1,10 +1,9 @@
 import { i18next, localize } from '@things-factory/i18n-base'
 import '@things-factory/i18n-ui/client/components/i18n-selector'
-import { PageView } from '@things-factory/shell'
-import { css, html } from 'lit-element'
+import { css, html, LitElement } from 'lit-element'
 import '../components/profile-component'
 
-export class AuthProfile extends localize(i18next)(PageView) {
+export class AuthProfile extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       css`

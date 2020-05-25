@@ -3,7 +3,7 @@ import { i18next, localize } from '@things-factory/i18n-base'
 import { css, html } from 'lit-element'
 import '../components/profile-component'
 
-export class AuthResult extends localize(i18next)(PageView) {
+export class AuthResult extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       css`

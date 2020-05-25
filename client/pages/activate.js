@@ -1,10 +1,9 @@
 import '@material/mwc-button'
 import { i18next, localize } from '@things-factory/i18n-base'
 import '@things-factory/layout-ui/client/layouts/snack-bar'
-import { css, html } from 'lit-element'
-import { PageView } from '@things-factory/shell'
+import { css, html, LitElement } from 'lit-element'
 
-export class AuthActivate extends localize(i18next)(PageView) {
+export class AuthActivate extends localize(i18next)(LitElement) {
   static get styles() {
     return [
       css`
