@@ -1,8 +1,20 @@
-export async function openSigninPopup() {
-  const el = document.createElement('auth-signin')
+export function openPopup(tagname) {
+  let attached = false
+  let el = document.body.querySelector(tagname)
+  if (el) attached = true
+  else el = document.createElement(tagname)
+
+  el.id = 'signin-popup'
   el.active = true
 
-  document.body.appendChild(el)
-
+  if (!attached) document.body.appendChild(el)
   return el
+}
+
+export function openSigninPopup() {
+  return openPopup('auth-signin')
+}
+
+export function openDomainSelectPopup() {
+  return openPopup('auth-domain-select')
 }

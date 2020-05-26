@@ -118,8 +118,12 @@ export class AuthDomainSelect extends localize(i18next)(connect(store)(LitElemen
                 <select
                   id="domain-select"
                   @change=${async e => {
-                    var domain = e.target.value
-                    if (domain) navigate(await auth.checkin(domain), true)
+                    const domain = e.target.value
+                    let checkedInSucceed
+                    if (domain) checkedInSucceed = await auth.checkin(domain)
+                    if (checkedInSucceed) navigate(`/domain/${domain}`, true)
+
+                    document.body.removeChild(this)
                   }}
                 >
                   <option value=""></option>

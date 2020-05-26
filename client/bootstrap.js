@@ -4,7 +4,7 @@ import { i18next } from '@things-factory/i18n-base'
 import { ADD_MORENDA } from '@things-factory/more-base'
 import { navigate, store, subscribe, unsubscribe } from '@things-factory/shell'
 import { html } from 'lit-html'
-import { openSigninPopup } from './open-popup'
+import { openSigninPopup, openDomainSelectPopup } from './open-popup'
 
 export default function bootstrap() {
   async function readySigninPopup() {
@@ -12,6 +12,13 @@ export default function bootstrap() {
       /* webpackPrefetch: true */
       /* webpackChunkName: "signin" */
       './pages/signin.js'
+    )
+  }
+  async function readyDomainSelectPopup() {
+    return await import(
+      /* webpackPrefetch: true */
+      /* webpackChunkName: "domain-select" */
+      './pages/domain-select.js'
     )
   }
 
@@ -30,24 +37,23 @@ export default function bootstrap() {
     )
   }
 
-  function onError(ex) {
-    var { detail = {} } = ex
+  function onError(e) {
+    var { detail = {} } = e
     var { message } = detail
     document.dispatchEvent(
       new CustomEvent('notify', {
         detail: {
           level: 'error',
-          message
+          message: i18next.t(`text.${message}`)
         }
       })
     )
   }
 
   readySigninPopup()
+  readyDomainSelectPopup()
 
   auth.on('signin', ({ accessToken, domains, redirectTo }) => {
-    const redirectUrl = new URL(redirectTo)
-    if (!new RegExp(redirectUrl.pathname).test(location.pathname)) navigate(redirectTo, true)
     onAuthentication(true)
     auth.profile()
   })
@@ -56,16 +62,27 @@ export default function bootstrap() {
     unsubscribe()
     location.replace('/')
   })
-  auth.on('profile', async ({ credential, domains }) => {
+  auth.on('profile', async ({ credential }) => {
     subscribe({
       ...credential
     })
 
-    const currentDomainPath = location.pathname.match(/domain\/(\w+)\/?/)[1]
-    const redirectURL = await auth.checkin(currentDomainPath)
-    console.log(redirectURL)
-
     if (credential.locale) i18next.changeLanguage(credential.locale)
+
+    const { domain, domains } = credential
+    if (!domain?.subdomain) {
+      openDomainSelectPopup()
+      return
+    }
+
+    const checkinSucceeded = await auth.checkin(domain?.subdomain)
+
+    if (checkinSucceeded) {
+      const domainPathMatched = location.pathname.match(/domain\/(\w+)\/?/)
+      const currentDomain = domainPathMatched?.[1]
+
+      if (currentDomain != domain?.subdomain) navigate(`/domain/${domain?.subdomain}`, true)
+    }
   })
 
   auth.on(auth.authRequiredEvent, () => {

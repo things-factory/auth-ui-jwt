@@ -17,9 +17,9 @@ export class AuthSignin extends AbstractSign {
   async submit() {
     const formData = new FormData(this.formEl)
     const data = Object.fromEntries(formData.entries())
-    await auth.signin(data)
+    const { success } = await auth.signin(data)
 
-    document.body.removeChild(this)
+    if (success) document.body.removeChild(this)
   }
 
   async handleSubmit(e) {
