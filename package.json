@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/auth-ui-jwt",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "main": "dist-server/index.js",
   "browser": "client/index.js",
   "things-factory": true,
@@ -28,7 +28,7 @@
     "@material/mwc-icon": "^0.13.0",
     "@material/mwc-textarea": "^0.13.0",
     "@material/mwc-textfield": "^0.13.0",
-    "@things-factory/auth-base": "^2.0.0",
+    "@things-factory/auth-base": "^2.5.0",
     "@things-factory/auth-provider-jwt": "^2.0.0",
     "@things-factory/i18n-base": "^2.0.0",
     "@things-factory/i18n-ui": "^2.0.0",
