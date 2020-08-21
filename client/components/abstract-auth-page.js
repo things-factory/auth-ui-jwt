@@ -109,7 +109,9 @@ export class AbstractAuthPage extends localize(i18next)(LitElement) {
   }
 
   firstUpdated() {
-    this.renderRoot.querySelector('mwc-textfield').focus() // not working...
+    setTimeout(() => {
+      this.renderRoot.querySelector('mwc-textfield').focus()
+    }, 100)
 
     this.formEl.reset = () => {
       this.formElements.filter(el => !(el.hidden || el.type == 'hidden')).forEach(el => (el.value = ''))
